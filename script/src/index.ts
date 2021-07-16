@@ -1,8 +1,10 @@
 import urlMetadata from 'url-metadata'
 import {parseDomain, ParseResultType} from "parse-domain";
 
+const preUrl = 'http://localhost:8080/'
+
 // const url: string = 'https://www.dzialowski.eu/great-depression-roth/'
-const url = 'https://www.theguardian.com/us-news/2021/jul/13/joe-biden-republicans-voting-rights-philadelphia'
+const url = preUrl + 'https://www.theguardian.com/us-news/2021/jul/13/joe-biden-republicans-voting-rights-philadelphia'
 
 interface EntryData {
     title: string,
@@ -56,6 +58,17 @@ urlMetadata(url).then(
         website: metadata.source,
     }
     return entryData
+  },
+  error => {
+      console.log('Error!')
+      console.log(error)
+    const emptyEntryData: EntryData = {
+        title: '',
+        author: '',
+        url: '',
+        website: '',
+    }
+    return emptyEntryData
   }
 ).then(
     entryData => {

@@ -9,24 +9,27 @@ interface EntryData {
     website: string,
 }
 
-function firstWordFromTitle(title: string): string {
+function firstWordsFromTitle(title: string): string {
     let words = title.split(" ")
+    let firstWords = ""
+    let numWords = 0
     for (const i in title.split(" ")) {
-        if (words[i].length > 4) {
-            return words[i] 
+        if (words[i].length >= 4 && numWords < 2) {
+            firstWords = firstWords + words[i].charAt(0).toUpperCase() + words[i].slice(1) // capitalize first letter in word
+            numWords += 1
         }
     }
-    return ""
+    return firstWords
 }
 
 function createCiteKey(entryData: EntryData): string {
     let citekey: string = ""
     const parseResult = parseDomain(entryData.website)
-    if (parseResult.type === ParseResultType.Listed) {
+    if (parseResult.type === ParseResultType.Listed) {  // this fails. Why?
         const {subDomains, domain, topLevelDomains} = parseResult
         citekey = "" + domain
     }
-    citekey = citekey + firstWordFromTitle(entryData.title)
+    citekey = citekey + firstWordsFromTitle(entryData.title)
     citekey = citekey.replace(/\W/g, '') // remove non-alphanumeric characters
     return citekey
 }
@@ -44,22 +47,21 @@ function bibtexFromEntryData(entryData: EntryData): string {
 }
 
 
-const getCitation = (url: string, setBibtexEntry: Dispatch<SetStateAction<string>>) => {
-    urlMetadata(url).then(
+const getCitation = async (url: string, setBibtexEntry: Dispatch<SetStateAction<string>>) => {
+    const proxyUrl = 'http://localhost:8080/'+url
+    urlMetadata(proxyUrl).then(
     metadata => { // success handler
-        console.log(metadata)
         const entryData: EntryData = {
             title: metadata.title,
             author: metadata.author,
-            url: metadata.url,
+            url: url,
             website: metadata.source,
         }
         return entryData
-    }
+    },
     ).then(
         entryData => {
             let bibtex: string = bibtexFromEntryData(entryData)
-            console.log(bibtex)
             setBibtexEntry(bibtex)
         }
     )

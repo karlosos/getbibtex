@@ -1,6 +1,7 @@
 import urlMetadata from 'url-metadata'
 import {parseDomain, ParseResultType} from "parse-domain";
 import { Dispatch, SetStateAction } from 'react'
+import moment from 'moment'
 
 interface EntryData {
     title: string,
@@ -36,12 +37,13 @@ function createCiteKey(entryData: EntryData): string {
 
 function bibtexFromEntryData(entryData: EntryData): string {
     // TODO: check if there are no invalid characters for bibtex
+    const currentDate = moment().format("DD-MMM-YYYY"); 
     let bibtex: string = `@misc{${createCiteKey(entryData)},
 \tauthor = "${entryData.author}",
 \ttitle = "{${entryData.title}} --- ${entryData.website}",
 \thowpublished = "\\url{${entryData.url}}",
 \tyear = {},
-\tnote = {(Accessed on 14.07.2021)},
+\tnote = {[Accessed ${currentDate}]},
 }`
     return bibtex
 }

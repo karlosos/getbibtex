@@ -9,13 +9,19 @@ const App = () => {
   const [url, setUrl] = useState('')
   const [bibtexEntry, setBibtexEntry] = useState('')
   const { copy } = useClipboard()
+  const [loading, setLoading] = useState(false)
 
   const handleUrlChange = (e) => {
     setUrl(e.target.value)
   }
 
   const handleButtonClicked = (e) => {
-      getCitation(url, setBibtexEntry)
+    setLoading(true)
+    getCitation(url, setBibtexEntry).then(bibtex => {
+      console.log("Returned BiBtex", bibtex)
+      setBibtexEntry(bibtex)
+      setLoading(false)  // will this work on error promise?
+    })
   }
 
   const handleCopyClicked = () => {
@@ -35,7 +41,7 @@ const App = () => {
             <Input placeholder="URL to website/article" width="100%" value={url} onChange={handleUrlChange} />
             <Spacer y={.5} />
             <Row justify="center">
-              <Button onClick={handleButtonClicked} type="secondary" style={{width: '100%'}}>Generate BibTex entry</Button>
+              <Button loading={loading} onClick={handleButtonClicked} type="secondary" style={{width: '100%'}}>Generate BibTex entry</Button>
             </Row>
             <Spacer y={.5} />
             <div className='output' style={{position: 'relative'}}>

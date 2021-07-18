@@ -49,11 +49,11 @@ function bibtexFromEntryData(entryData: EntryData): string {
 }
 
 
-const getCitation = async (url: string, setBibtexEntry: Dispatch<SetStateAction<string>>) => {
+const getCitation = async (url: string) => {
     const proxyServerUrl = process.env.REACT_APP_BACKEND_URL || 'http://localhost:8080/'
     const proxyUrl = proxyServerUrl+url
     console.log('Proxied URL', proxyUrl)
-    urlMetadata(proxyUrl).then(
+    return urlMetadata(proxyUrl).then(
     metadata => { // success handler
         const entryData: EntryData = {
             title: metadata.title,
@@ -66,7 +66,7 @@ const getCitation = async (url: string, setBibtexEntry: Dispatch<SetStateAction<
     ).then(
         entryData => {
             let bibtex: string = bibtexFromEntryData(entryData)
-            setBibtexEntry(bibtex)
+            return bibtex
         }
     )
 }

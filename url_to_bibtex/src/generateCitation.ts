@@ -26,7 +26,7 @@ function createCiteKey(entryData: EntryData): string {
     let citekey: string = ""
     const parseResult = parseDomain(entryData.website)
     if (parseResult.type === ParseResultType.Listed) {  // this fails. Why?
-        const {subDomains, domain, topLevelDomains} = parseResult
+        const { domain } = parseResult
         citekey = "" + domain
     }
     citekey = citekey + firstWordsFromTitle(entryData.title)
@@ -48,7 +48,9 @@ function bibtexFromEntryData(entryData: EntryData): string {
 
 
 const getCitation = async (url: string, setBibtexEntry: Dispatch<SetStateAction<string>>) => {
-    const proxyUrl = 'http://localhost:8080/'+url
+    const proxyServerUrl = process.env.REACT_APP_BACKEND_URL || 'http://localhost:8080/'
+    const proxyUrl = proxyServerUrl+url
+    console.log('Proxied URL', proxyUrl)
     urlMetadata(proxyUrl).then(
     metadata => { // success handler
         const entryData: EntryData = {

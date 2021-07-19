@@ -1,15 +1,16 @@
 import './App.css'
 import { GeistProvider, CssBaseline, useClipboard } from '@geist-ui/react'
 import { Row, Col, Input, Spacer, Button, Textarea, Text, Note } from '@geist-ui/react'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { getCitation } from './generateCitation'
-import { Copy } from '@geist-ui/react-icons'
+import { Copy, Check } from '@geist-ui/react-icons'
 
 const App = () => {
   const [url, setUrl] = useState('')
   const [bibtexEntry, setBibtexEntry] = useState('')
   const { copy } = useClipboard()
   const [loading, setLoading] = useState(false)
+  const [copied, setCopied] = useState(false)
 
   const handleUrlChange = (e) => {
     setUrl(e.target.value)
@@ -26,7 +27,16 @@ const App = () => {
 
   const handleCopyClicked = () => {
     copy(bibtexEntry)
+    // set checkmark in button
+    setCopied(true)
   }
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setCopied(false)
+    }, 1500)
+    return () => clearTimeout(timer)
+  }, [copied])
 
   return (
     <GeistProvider>
@@ -46,7 +56,7 @@ const App = () => {
             <Spacer y={.5} />
             <div className='output' style={{position: 'relative'}}>
             <Textarea placeholder="" width="100%" minHeight="23em" value={bibtexEntry} />
-            <Button style={{position: 'absolute', top: '5px', right: '5px', zIndex: 33}} iconRight={<Copy />} auto size="small" onClick={handleCopyClicked}></Button>
+            <Button style={{position: 'absolute', top: '5px', right: '5px', zIndex: 33, borderColor: copied ? 'green' : '', padding: '0 0.5rem'}} iconRight={copied ? <Check color='green' /> : <Copy /> } auto size="small" onClick={handleCopyClicked}></Button>
             </div>
           </Col>
         </Row>

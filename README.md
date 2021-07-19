@@ -19,6 +19,12 @@ I've used [cors-anywhere](https://github.com/Rob--W/cors-anywhere), because of i
 
 ## Deploy
 
+Add environmental variable (project secrets on Github):
+
+```
+REACT_APP_BACKEND_URL='https://cors-url-to-bibtex.herokuapp.com/'
+```
+
 ### Proxy server - cors-anywhere
 
 Deployment of cors-anywhere is described [here](https://github.com/Rob--W/cors-anywhere) and [here](https://devcenter.heroku.com/articles/getting-started-with-nodejs?singlepage=true). 
@@ -31,8 +37,3 @@ In summary:
 * push to heroku with `git push heroku`
 * open app with `heroku open`
 
-Add environmental variables:
-
-```
-REACT_APP_BACKEND_URL='http://localhost:8080/'
-```

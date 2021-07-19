@@ -1,5 +1,6 @@
 {
   "name": "url_to_bibtex",
+  "homepage": "https://karlosos.github.io/url_to_bibtex/",
   "version": "0.1.0",
   "private": true,
   "dependencies": {

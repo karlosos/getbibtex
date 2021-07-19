@@ -37,11 +37,11 @@ function createCiteKey(entryData: EntryData): string {
 function bibtexFromEntryData(entryData: EntryData): string {
     // TODO: check if there are no invalid characters for bibtex
     const currentDate = moment().format("DD-MMM-YYYY")
-    const title = upperLettersInBibTex(`${entryData.title}} --- ${entryData.website}`)
+    const title = upperLettersInBibTex(`${entryData.title} --- ${entryData.website}`)
     let bibtex: string = `@misc{${createCiteKey(entryData)},
-\tauthor = "{${entryData.author}}",
-\ttitle = "{${title}}",
-\thowpublished = "\\url{${entryData.url}}",
+\tauthor = {${entryData.author}},
+\ttitle = {${title}},
+\thowpublished = {\\url{${entryData.url}}},
 \tyear = {},
 \tnote = {[Accessed ${currentDate}]},
 }`

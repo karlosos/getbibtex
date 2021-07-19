@@ -33,7 +33,8 @@ In summary:
 
 * [install heroku-cli](https://devcenter.heroku.com/articles/getting-started-with-nodejs?singlepage=true)
 * login to heroku with `heroku login`
-* create the app with `heroku create`
+* create the app with `heroku create` or `heroku git:remote -a cors-url-to-bibtex`
 * push to heroku with `git push heroku`
 * open app with `heroku open`
+
 

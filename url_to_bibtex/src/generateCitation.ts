@@ -1,6 +1,5 @@
 import urlMetadata from 'url-metadata'
 import {parseDomain, ParseResultType} from "parse-domain";
-import { Dispatch, SetStateAction } from 'react'
 import moment from 'moment'
 
 interface EntryData {
@@ -48,18 +47,29 @@ function bibtexFromEntryData(entryData: EntryData): string {
     return bibtex
 }
 
+function domainFromUrl(url: string): string {
+    // based on regular expression https://regex101.com/r/MOIFTy/3
+    const domainRegex = '^(?:https?:)?(?:\/\/)?(?:[^@\n]+@)?(?:www\.)?([^:\/\n]+)'
+    const match = url.match(domainRegex)
+    let domain: string = ''
+    if (match != null) {
+        domain = match[1]
+    }
+    return domain
+}
+
 
 const getCitation = async (url: string) => {
     const proxyServerUrl = process.env.REACT_APP_BACKEND_URL || 'http://localhost:8080/'
     const proxyUrl = proxyServerUrl+url
-    console.log('Proxied URL', proxyUrl)
     return urlMetadata(proxyUrl).then(
     metadata => { // success handler
+        const domain = domainFromUrl(url)
         const entryData: EntryData = {
             title: metadata.title,
             author: metadata.author,
             url: url,
-            website: metadata.source,
+            website: domain,
         }
         return entryData
     },

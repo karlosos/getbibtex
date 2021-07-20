@@ -1,8 +1,8 @@
 {
   "files": {
     "main.css": "/url_to_bibtex/static/css/main.ea1455b2.chunk.css",
-    "main.js": "/url_to_bibtex/static/js/main.2471bd44.chunk.js",
-    "main.js.map": "/url_to_bibtex/static/js/main.2471bd44.chunk.js.map",
+    "main.js": "/url_to_bibtex/static/js/main.04ca7d64.chunk.js",
+    "main.js.map": "/url_to_bibtex/static/js/main.04ca7d64.chunk.js.map",
     "runtime-main.js": "/url_to_bibtex/static/js/runtime-main.49e9ea26.js",
     "runtime-main.js.map": "/url_to_bibtex/static/js/runtime-main.49e9ea26.js.map",
     "static/js/2.bb1222d8.chunk.js": "/url_to_bibtex/static/js/2.bb1222d8.chunk.js",
@@ -17,6 +17,6 @@
     "static/js/runtime-main.49e9ea26.js",
     "static/js/2.bb1222d8.chunk.js",
     "static/css/main.ea1455b2.chunk.css",
-    "static/js/main.2471bd44.chunk.js"
+    "static/js/main.04ca7d64.chunk.js"
   ]
 }

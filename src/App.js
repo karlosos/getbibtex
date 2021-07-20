@@ -43,9 +43,9 @@ const App = () => {
   return (
     <GeistProvider>
       <CssBaseline />
-        <Spacer y={1}/>
         <Row style={{ marginBottom: '15px'}} justify="center">
           <Col span={22} justify="center" style={{maxWidth: '38em'}}>
+            <Spacer y={2}/>
             <Text h1>BibTex generator from URL</Text>
             <Note label="IMPORTANT NOTE" type="warning">Most educators and professionals do not consider it appropriate to use tertiary sources such as encyclopedias as a sole source for any information—citing an encyclopedia as an important reference in footnotes or bibliographies may result in censure or a failing grade. Wikipedia articles should be used for background information, as a reference for correct terminology and search terms, and as a starting point for further research.</Note>
             <Spacer y={2} />

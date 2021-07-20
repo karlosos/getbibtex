@@ -81,7 +81,7 @@ const getCitation = async (url: string) => {
     ).then(
         entryData => {
             let bibtex: string = bibtexFromEntryData(entryData)
-            return bibtex
+            return {bibtex, entryData}
         }
     )
 }

@@ -4,10 +4,12 @@ import { Row, Col, Input, Spacer, Button, Textarea, Text, Note } from '@geist-ui
 import { useEffect, useState } from 'react'
 import { getCitation } from './generateCitation'
 import { Copy, Check } from '@geist-ui/react-icons'
+import moment from 'moment'
 
 const App = () => {
   const [url, setUrl] = useState('')
   const [bibtexEntry, setBibtexEntry] = useState('')
+  const [entryData, setEntryData] = useState()
   const { copy } = useClipboard()
   const [loading, setLoading] = useState(false)
   const [copied, setCopied] = useState(false)
@@ -18,9 +20,9 @@ const App = () => {
 
   const handleButtonClicked = (e) => {
     setLoading(true)
-    getCitation(url, setBibtexEntry).then(bibtex => {
-      console.log("Returned BiBtex", bibtex)
+    getCitation(url, setBibtexEntry).then(({bibtex, entryData})=> {
       setBibtexEntry(bibtex)
+      setEntryData(entryData)
       setLoading(false)  // will this work on error promise?
     })
   }
@@ -55,9 +57,18 @@ const App = () => {
             </Row>
             <Spacer y={.5} />
             <div className='output' style={{position: 'relative'}}>
-            <Textarea placeholder="" width="100%" minHeight="23em" value={bibtexEntry} />
+            <Textarea placeholder="" width="100%" minHeight="23em" value={bibtexEntry} onChange={(e) => setBibtexEntry(e.target.value)}/>
             <Button style={{position: 'absolute', top: '5px', right: '5px', zIndex: 33, borderColor: copied ? 'green' : '', padding: '0 0.5rem'}} iconRight={copied ? <Check color='green' /> : <Copy /> } auto size="small" onClick={handleCopyClicked}></Button>
             </div>
+            {entryData!=null && 
+              <span>
+                <span>{entryData?.author && entryData?.author + '. '}</span>
+                <span style={{fontStyle: 'italic'}}>{entryData?.title + ' --- ' + entryData?.website + '. '} </span>
+                <a href={entryData?.url}>{entryData?.url}</a>,
+                <span> {entryData?.date && entryData?.date + '. '}</span>
+                <span>[Accessed {moment().format("DD-MMM-YYYY")}]</span>
+              </span>
+            }
           </Col>
         </Row>
     </GeistProvider>

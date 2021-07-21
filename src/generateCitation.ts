@@ -25,7 +25,7 @@ function firstWordsFromTitle(title: string): string {
 function createCiteKey(entryData: EntryData): string {
     let citekey: string = ""
     const parseResult = parseDomain(entryData.website)
-    if (parseResult.type === ParseResultType.Listed) {  // this fails. Why?
+    if (parseResult.type === ParseResultType.Listed) {
         const { domain } = parseResult
         citekey = "" + domain
     }
@@ -86,4 +86,11 @@ const getCitation = async (url: string) => {
     )
 }
 
-export { getCitation }
+export { 
+    getCitation, 
+    firstWordsFromTitle, 
+    createCiteKey, 
+    upperLettersInBibTex, 
+    domainFromUrl, 
+    bibtexFromEntryData
+}

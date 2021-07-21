@@ -74,4 +74,9 @@ In summary:
 * push to heroku with `git push heroku`
 * open app with `heroku open`
 
+In the end add config vars for whitelisted origins:
+
+```
+CORSANYWHERE_WHITELIST=https://karlosos.github.io, http://karlosos.github.io
+```
 

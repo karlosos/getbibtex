@@ -13,6 +13,7 @@ const App = () => {
   const { copy } = useClipboard()
   const [loading, setLoading] = useState(false)
   const [copied, setCopied] = useState(false)
+  const [firstConnection, setFirstConnection] = useState(true)
 
   const handleUrlChange = (e) => {
     setUrl(e.target.value)
@@ -24,6 +25,7 @@ const App = () => {
       setBibtexEntry(bibtex)
       setEntryData(entryData)
       setLoading(false) // will this work on error promise?
+      setFirstConnection(false)
     })
   }
 
@@ -49,6 +51,12 @@ const App = () => {
           <Text h1>BibTex generator from URL</Text>
           <Note label='IMPORTANT NOTE' type='warning'>Most educators and professionals do not consider it appropriate to use tertiary sources such as encyclopedias as a sole source for any information—citing an encyclopedia as an important reference in footnotes or bibliographies may result in censure or a failing grade. Wikipedia articles should be used for background information, as a reference for correct terminology and search terms, and as a starting point for further research.</Note>
           <Spacer y={2} />
+          {firstConnection && 
+            <>
+            <Note label='SLOW CONNECTION' type='error'>First connection to the backend can take longer time.</Note>
+            <Spacer y={2} />
+            </>
+          }
           <Text h4>Enter the URL below: </Text>
           <Input placeholder='URL to website/article' width='100%' value={url} onChange={handleUrlChange} />
           <Spacer y={0.5} />

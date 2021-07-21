@@ -24,6 +24,7 @@
 <td align="center">
 <img width="2000" height="0"><br>
 Website: <b><a href="https://karlosos.github.io/url_to_bibtex/">karlosos.github.io/url_to_bibtex 🌐</a></b><br>
+<img width="2000" height="0">
 </td>
 </tbody>
 </table>

@@ -11,6 +11,7 @@ import {
   Text,
   Note,
   Grid,
+  useToasts,
 } from "@geist-ui/react";
 
 import React, { useEffect, useRef, useState } from "react";
@@ -27,6 +28,7 @@ const Home: NextPage = () => {
   const [loading, setLoading] = useState<boolean>(false);
   const [copied, setCopied] = useState<boolean>(false);
   const copyButtonTimerRef = useRef<ReturnType<typeof setTimeout>>();
+  const [error, setError] = useState("");
 
   const { copy } = useClipboard();
 
@@ -34,15 +36,24 @@ const Home: NextPage = () => {
     setUrl(e.target.value);
   };
 
-  const handleButtonClicked = async (e: React.MouseEvent<HTMLButtonElement>) => {
+  const handleButtonClicked = async (
+    e: React.MouseEvent<HTMLButtonElement>
+  ) => {
+    setError("");
     setLoading(true);
+    try {
+      const response: AxiosResponse<{ bibtex: string; entryData: EntryData }> =
+        await axios.post(`/api/getCitation/`, { url: url });
+      const { bibtex, entryData } = response.data;
 
-    const response: AxiosResponse<{ bibtex: string, entryData: EntryData}> = await axios.post(`/api/getCitation/`, { url: url })
-    const { bibtex, entryData } = response.data;
-
-    setBibtexEntry(bibtex);
-    setEntryData(entryData);
-    setLoading(false);
+      setBibtexEntry(bibtex);
+      setEntryData(entryData);
+    } catch (e) {
+      const error = e as string;
+      setError(`${error}`);
+    } finally {
+      setLoading(false);
+    }
   };
 
   const handleCopyClicked = () => {
@@ -52,7 +63,7 @@ const Home: NextPage = () => {
     // When copy button clicked is multiple times
     // then start counting from the last one
     if (copyButtonTimerRef.current !== undefined) {
-      clearTimeout(copyButtonTimerRef.current)
+      clearTimeout(copyButtonTimerRef.current);
     }
 
     copyButtonTimerRef.current = setTimeout(() => {
@@ -62,7 +73,8 @@ const Home: NextPage = () => {
   };
 
   useEffect(() => {
-    return () => copyButtonTimerRef.current && clearTimeout(copyButtonTimerRef.current);
+    return () =>
+      copyButtonTimerRef.current && clearTimeout(copyButtonTimerRef.current);
   }, []);
 
   return (
@@ -104,6 +116,15 @@ const Home: NextPage = () => {
               Generate BibTeX entry
             </Button>
           </Grid>
+          {error && (
+            <>
+              <Spacer h={0.5} />
+              <Note label="ERROR" type="error" style={{textAlign: 'center'}}>
+                Error while getting BibTeX Entry. Please try again.<br />
+                ({error})
+              </Note>
+            </>
+          )}
           <Spacer h={0.5} />
           <div className="output" style={{ position: "relative" }}>
             <Textarea

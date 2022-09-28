@@ -16,7 +16,7 @@ import {
 import React, { useEffect, useRef, useState } from "react";
 import { Copy, Check } from "@geist-ui/react-icons";
 import moment from "moment";
-import axios from "axios";
+import axios, { AxiosResponse } from "axios";
 import { Layout } from "../components/Layout";
 import { EntryData } from "../common/types";
 
@@ -34,18 +34,15 @@ const Home: NextPage = () => {
     setUrl(e.target.value);
   };
 
-  const handleButtonClicked = (e: React.MouseEvent<HTMLButtonElement>) => {
+  const handleButtonClicked = async (e: React.MouseEvent<HTMLButtonElement>) => {
     setLoading(true);
-    axios
-      .post(`/api/getCitation/`, { url: url })
-      .then((response: any) => {
-        const { bibtex, entryData } = response.data;
-        setBibtexEntry(bibtex);
-        setEntryData(entryData);
-      })
-      .finally(() => {
-        setLoading(false);
-      });
+
+    const response: AxiosResponse<{ bibtex: string, entryData: EntryData}> = await axios.post(`/api/getCitation/`, { url: url })
+    const { bibtex, entryData } = response.data;
+
+    setBibtexEntry(bibtex);
+    setEntryData(entryData);
+    setLoading(false);
   };
 
   const handleCopyClicked = () => {

@@ -1,10 +1,10 @@
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
 
-const MONGO_URI = process.env.MONGO_URI;
+const MONGO_URI = process.env.MONGO_URI || 'PROVIDE_MONGO_URI';
 
 async function connect() {
   try {
-    await mongoose.connect(MONGO_URI, {useNewUrlParser: true});
+    await mongoose.connect(MONGO_URI);
     console.log('MongoDB connected');
   } catch (err) {
     console.log(err);
@@ -14,7 +14,7 @@ async function connect() {
 const EntryModel = mongoose.models.bibtexEntry || mongoose.model('bibtexEntry', new mongoose.Schema({
   date: Date,
   url: String,
-})); // TODO: fix creating model?
+}));
 
 async function logRequest(url: any) {
   const itemObj = new EntryModel({
@@ -25,8 +25,8 @@ async function logRequest(url: any) {
 }
 
 async function closeConnection() {
-  console.log('MongoDB closed connection');
   await mongoose.disconnect();
+  console.log('MongoDB connection closed');
 }
 
 export const db = {

@@ -13,7 +13,6 @@ const App = () => {
   const { copy } = useClipboard()
   const [loading, setLoading] = useState(false)
   const [copied, setCopied] = useState(false)
-  const [firstConnection, setFirstConnection] = useState(true)
 
   const handleUrlChange = (e) => {
     setUrl(e.target.value)
@@ -25,7 +24,6 @@ const App = () => {
       setBibtexEntry(bibtex)
       setEntryData(entryData)
       setLoading(false) // will this work on error promise?
-      setFirstConnection(false)
     })
   }
 
@@ -49,16 +47,11 @@ const App = () => {
         <Col span={22} justify='center' style={{ maxWidth: '38em' }}>
           <Spacer y={2} />
           <Text h1>BibTex generator from URL</Text>
-          <Note label='IMPORTANT NOTE' type='warning'>Most educators and professionals do not consider it appropriate to use tertiary sources such as encyclopedias as a sole source for any information—citing an encyclopedia as an important reference in footnotes or bibliographies may result in censure or a failing grade. Wikipedia articles should be used for background information, as a reference for correct terminology and search terms, and as a starting point for further research.</Note>
           <Spacer y={2} />
-          {firstConnection && 
-            <>
-            <Note label='SLOW CONNECTION' type='error'>First connection to the backend can take longer time.</Note>
-            <Spacer y={2} />
-            </>
-          }
+          <Note label='USE NEW ADDRESS' type='error'>The application is moved to <a href="https://url-to-bibtex.vercel.app/">url-to-bibtex.vercel.app</a></Note>
+          <Spacer y={2} />
           <Text h4>Enter the URL below: </Text>
-          <Input placeholder='URL to website/article' width='100%' value={url} onChange={handleUrlChange} />
+          <Input placeholder='URL to website/article' width='100%' value={url} onChange={handleUrlChange} disabled={true} />
           <Spacer y={0.5} />
           <Row justify='center'>
             <Button loading={loading} onClick={handleButtonClicked} type='secondary' style={{ width: '100%' }}>Generate BibTex entry</Button>

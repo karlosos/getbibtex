@@ -4,7 +4,6 @@ import { ReactNode } from "react"
 export const Layout = ({children}: {children: ReactNode}) => {
   return (
    <>
-      <a href="https://github.com/karlosos/url_to_bibtex"><img style={{position: 'absolute', top: '0', left: '0', border: '0'}} loading="lazy" width="149" height="149" src="https://github.blog/wp-content/uploads/2008/12/forkme_left_white_ffffff.png?resize=149%2C149" alt="Fork me on GitHub" data-recalc-dims="1" /></a>
       <Head>
         <meta charSet="utf-8" />
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />

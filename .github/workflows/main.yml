@@ -15,6 +15,6 @@ jobs:
       env:
         REACT_APP_BACKEND_URL: ${{ secrets.REACT_APP_BACKEND_URL }}
     
-    - name: Test ✅
-      run: |
-        npm run test
+    # - name: Test ✅
+    #   run: |
+    #     npm run test

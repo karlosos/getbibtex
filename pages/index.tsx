@@ -101,7 +101,7 @@ const Home: NextPage = () => {
               type="secondary"
               style={{ width: "100%" }}
             >
-              Generate BibTex entry
+              Generate BibTeX entry
             </Button>
           </Grid>
           <Spacer h={0.5} />

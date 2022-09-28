@@ -5,10 +5,6 @@ import { getCitation } from '../../server/generateCitation'
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   let { url } = req.body
 
-  db.connect();
-  db.logRequest(url);
-  db.closeConnection();
-
   if (url === undefined) {
     res.status(500).json({ message: 'URL cannot be empty' }); // TODO: change status code
     return;
@@ -19,7 +15,18 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     return;
   }
 
+  const logging = logRequestToDb(url);
+
   const { bibtex, entryData } = await getCitation(url);
 
   res.status(200).json({entryData: entryData, bibtex: bibtex});
+  await logging;
+}
+
+const logRequestToDb = async (url: string) => {
+  await db.connect();
+  await db.logRequest(url);
+  await db.closeConnection();
+
+  return;
 }

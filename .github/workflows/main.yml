@@ -18,9 +18,3 @@ jobs:
     - name: Test ✅
       run: |
         npm run test
-        
-    - name: Deploy 🚀
-      uses: JamesIves/github-pages-deploy-action@releases/v3
-      with:
-        BRANCH: gh-pages
-        FOLDER: build

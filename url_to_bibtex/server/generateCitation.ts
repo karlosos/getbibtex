@@ -63,23 +63,18 @@ function domainFromUrl(url: string): string {
 
 
 const getCitation = async (url: string) => {
-    return urlMetadata(url).then(
-    metadata => { // success handler
-        const domain = domainFromUrl(url)
-        const entryData: EntryData = {
-            title: metadata.title,
-            author: metadata.author,
-            url: url,
-            website: domain,
-        }
-        return entryData
-    },
-    ).then(
-        entryData => {
-            let bibtex: string = bibtexFromEntryData(entryData)
-            return {bibtex, entryData}
-        }
-    )
+    const metadata = await urlMetadata(url);
+    const domain = domainFromUrl(url)
+    const entryData: EntryData = {
+        title: metadata.title,
+        author: metadata.author,
+        url: url,
+        website: domain,
+    }
+
+    const bibtex: string = bibtexFromEntryData(entryData)
+
+    return {bibtex, entryData}
 }
 
 export { 

@@ -1,17 +1,17 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
-import { db } from '../../server/db';
 import { getCitation } from '../../server/generateCitation'
+import { logRequestToDb } from '../../server/logger';
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   let { url } = req.body
 
   if (url === undefined) {
-    res.status(500).json({ message: 'URL cannot be empty' }); // TODO: change status code
+    res.status(400).json({ message: 'URL cannot be empty' });
     return;
   }
 
   if (typeof url !== 'string') {
-    res.status(500).json({ message: 'URL must be a string' }); // TODO: change status code
+    res.status(400).json({ message: 'URL must be a string' });
     return;
   }
 
@@ -21,12 +21,4 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
   res.status(200).json({entryData: entryData, bibtex: bibtex});
   await logging;
-}
-
-const logRequestToDb = async (url: string) => {
-  await db.connect();
-  await db.logRequest(url);
-  await db.closeConnection();
-
-  return;
 }

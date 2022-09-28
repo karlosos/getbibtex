@@ -13,25 +13,28 @@ import {
   Grid,
 } from "@geist-ui/react";
 
-import { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Copy, Check } from "@geist-ui/react-icons";
 import moment from "moment";
 import axios from "axios";
 import { Layout } from "../components/Layout";
+import { EntryData } from "../common/types";
 
 const Home: NextPage = () => {
-  const [url, setUrl] = useState("");
-  const [bibtexEntry, setBibtexEntry] = useState("");
-  const [entryData, setEntryData] = useState<any>();
-  const { copy } = useClipboard();
-  const [loading, setLoading] = useState(false);
-  const [copied, setCopied] = useState(false);
+  const [url, setUrl] = useState<string>("");
+  const [bibtexEntry, setBibtexEntry] = useState<string>("");
+  const [entryData, setEntryData] = useState<EntryData>();
+  const [loading, setLoading] = useState<boolean>(false);
+  const [copied, setCopied] = useState<boolean>(false);
+  const copyButtonTimerRef = useRef<ReturnType<typeof setTimeout>>();
 
-  const handleUrlChange = (e: any) => {
+  const { copy } = useClipboard();
+
+  const handleUrlChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setUrl(e.target.value);
   };
 
-  const handleButtonClicked = (e: any) => {
+  const handleButtonClicked = (e: React.MouseEvent<HTMLButtonElement>) => {
     setLoading(true);
     axios
       .post(`/api/getCitation/`, { url: url })
@@ -48,14 +51,22 @@ const Home: NextPage = () => {
   const handleCopyClicked = () => {
     copy(bibtexEntry);
     setCopied(true);
+
+    // When copy button clicked is multiple times
+    // then start counting from the last one
+    if (copyButtonTimerRef.current !== undefined) {
+      clearTimeout(copyButtonTimerRef.current)
+    }
+
+    copyButtonTimerRef.current = setTimeout(() => {
+      setCopied(false);
+      copyButtonTimerRef.current = undefined;
+    }, 1500);
   };
 
   useEffect(() => {
-    const timer = setTimeout(() => {
-      setCopied(false);
-    }, 1500);
-    return () => clearTimeout(timer);
-  }, [copied]);
+    return () => copyButtonTimerRef.current && clearTimeout(copyButtonTimerRef.current);
+  }, []);
 
   return (
     <Layout>
@@ -127,8 +138,7 @@ const Home: NextPage = () => {
                 {entryData?.title + " --- " + entryData?.website + ". "}{" "}
               </span>
               <a href={entryData?.url}>{entryData?.url}</a>,
-              <span> {entryData?.date && entryData?.date + ". "}</span>
-              <span>[Accessed {moment().format("DD-MMM-YYYY")}]</span>
+              <span> [Accessed {moment().format("DD-MMM-YYYY")}]</span>
             </span>
           )}
         </Grid.Container>

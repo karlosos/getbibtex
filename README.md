@@ -27,7 +27,7 @@
 <tbody>
 <td align="center">
 <img width="2000" height="0"><br>
-Website: <b><a href="https://karlosos.github.io/url_to_bibtex/">karlosos.github.io/url_to_bibtex 🌐</a></b><br>
+Website: <b><a href="https://url-to-bibtex.vercel.app/">url-to-bibtex.vercel.app 🌐</a></b><br>
 <img width="2000" height="0">
 </td>
 </tbody>

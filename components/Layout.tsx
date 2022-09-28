@@ -1,5 +1,5 @@
 import Head from "next/head"
-import { ReactNode } from "react"
+import React, { ReactNode } from "react"
 
 export const Layout = ({children}: {children: ReactNode}) => {
   return (
@@ -35,13 +35,13 @@ export const Layout = ({children}: {children: ReactNode}) => {
         <meta name="theme-color" content="#ffffff"></meta>
         <meta
           name="description"
-          content="Generate BibTex entry from URL. You can generate BibTex for any resource: from Wikipedia to news sites."
+          content="Generate BibTex entry from URL. You can generate BibTeX for any resource: from Wikipedia to news sites."
         />
         <title>URL to BibTex generator</title>
-        <meta property="og:title" content="BibTex entry generator from URL" />
+        <meta property="og:title" content="BibTeX entry generator from URL" />
         <meta
           property="og:description"
-          content="Simple web application to generate BibTex entry from any URL. No more manually creating @misc entries!"
+          content="Simple web application to generate BibTeX entry from any URL. No more manually creating @misc entries!"
         />
         <meta
           property="og:url"

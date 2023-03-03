@@ -11,7 +11,6 @@ import {
   Text,
   Note,
   Grid,
-  useToasts,
 } from "@geist-ui/react";
 
 import React, { useEffect, useRef, useState } from "react";

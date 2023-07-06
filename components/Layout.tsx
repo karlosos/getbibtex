@@ -35,9 +35,9 @@ export const Layout = ({children}: {children: ReactNode}) => {
         <meta name="theme-color" content="#ffffff"></meta>
         <meta
           name="description"
-          content="Generate BibTex entry from URL. You can generate BibTeX for any resource: from Wikipedia to news sites."
+          content="Generate BibTeX entry from URL. You can generate BibTeX for any resource: from Wikipedia to news sites."
         />
-        <title>URL to BibTex generator</title>
+        <title>URL to BibTeX generator</title>
         <meta property="og:title" content="BibTeX entry generator from URL" />
         <meta
           property="og:description"

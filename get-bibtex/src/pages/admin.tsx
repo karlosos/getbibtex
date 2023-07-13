@@ -1,5 +1,5 @@
 import { signIn, signOut, useSession } from "next-auth/react";
-import { api } from "@get-bibtex/utils/api";
+import { api } from "@/utils/api";
 
 export default function Admin() {
   const { data: sessionData } = useSession();

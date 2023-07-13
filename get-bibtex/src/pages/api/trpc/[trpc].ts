@@ -1,7 +1,7 @@
 import { createNextApiHandler } from "@trpc/server/adapters/next";
-import { env } from "@get-bibtex/env.mjs";
-import { appRouter } from "@get-bibtex/server/api/root";
-import { createTRPCContext } from "@get-bibtex/server/api/trpc";
+import { env } from "@/env.mjs";
+import { appRouter } from "@/server/api/root";
+import { createTRPCContext } from "@/server/api/trpc";
 
 // export API handler
 export default createNextApiHandler({

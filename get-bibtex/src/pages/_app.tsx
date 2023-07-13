@@ -1,8 +1,14 @@
 import { type Session } from "next-auth";
 import { SessionProvider } from "next-auth/react";
 import { type AppType } from "next/app";
-import { api } from "@get-bibtex/utils/api";
-import "@get-bibtex/styles/globals.css";
+import { api } from "@/utils/api";
+import "@/styles/globals.css";
+import { Inter } from 'next/font/google'
+
+const inter = Inter({
+  subsets: ['latin'],
+  variable: '--font-inter',
+})
 
 const MyApp: AppType<{ session: Session | null }> = ({
   Component,
@@ -10,7 +16,9 @@ const MyApp: AppType<{ session: Session | null }> = ({
 }) => {
   return (
     <SessionProvider session={session}>
-      <Component {...pageProps} />
+      <main className={`${inter.variable} font-sans`} >
+        <Component {...pageProps} />
+      </main>
     </SessionProvider>
   );
 };

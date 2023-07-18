@@ -34,7 +34,7 @@ export default function Home() {
   return (
     <Layout>
       <main className="flex flex-col items-center">
-        <div className="m-2 flex h-80 w-full max-w-4xl flex-col items-center rounded-2xl bg-gradient-to-b from-[#d5edd7] to-[#f8eec4] p-2 text-[#11124d] shadow-sm">
+        <div className="mt-2 lg:mt-8 flex h-80 w-full max-w-4xl flex-col items-center rounded-xl bg-gradient-to-b from-[#d5edd7] to-[#f8eec4] p-2 text-[#11124d] shadow-sm">
           <div className="space-x-1">
             <UrlPill />
             <GitHubPill />
@@ -56,10 +56,11 @@ export default function Home() {
             Get BibTeX
           </Button>
         </div>
-        <div className="mt-10 w-full max-w-2xl p-2">
+        <div className="mt-10 w-full max-w-2xl p-4 border border-primary/20 rounded-md shadow-sm z-10 bg-slate-50/50">
           {bibtexEntry && (
             <>
               <Textarea
+                className="bg-white h-48"
                 value={bibtexEntry}
                 onChange={(e) => setBibtexEntry(e.target.value)}
               />
@@ -103,7 +104,7 @@ const GitHubPill = () => (
     <a target="_blank" href="https://github.com/karlosos/getbibtex">
       <div className="inline-flex items-center">
         <Github className="h-3" />
-        <span>give me a star</span>
+        <span>star me on github</span>
       </div>
     </a>
   </button>
@@ -132,7 +133,7 @@ const HeaderText = () => (
     <p className="mt-4 max-w-xl">
       Paste URL below and generate BibTeX citation. Keep in mind that most
       educators and professionals do not consider it appropriate to use tertiary
-      sources such as encyclopedias as a sole source for any information—citing
+      sources such as encyclopedias as a sole source for any information — citing
       an encyclopedia as an important reference in footnotes or bibliographies
       may result in censure or a failing grade.{" "}
     </p>

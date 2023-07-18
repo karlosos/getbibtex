@@ -8,9 +8,14 @@ function firstWordsFromTitle(title: string): string {
     let firstWords = ""
     let numWords = 0
 
-    for (const i in title.split(" ")) {
-        if (words[i].length >= 4 && numWords < 2) {
-            firstWords = firstWords + words[i].charAt(0).toUpperCase() + words[i].slice(1) // capitalize first letter in word
+    console.log('>> title', title);
+    console.log('>> words', words);
+
+    for (const word of words) {
+        console.log("i", word)
+        // Why we are checking words[i] here? To Be analyzed.
+        if (word.length >= 4 && numWords < 2) {
+            firstWords = firstWords + word.charAt(0).toUpperCase() + word.slice(1) // capitalize first letter in word
             numWords += 1
         }
     }
@@ -62,7 +67,7 @@ function domainFromUrl(url: string): string {
 }
 
 
-const getCitation = async (url: string) => {
+export const getCitation = async (url: string) => {
     const metadata = await urlMetadata(url);
     const domain = domainFromUrl(url)
     const entryData: EntryData = {
@@ -75,13 +80,4 @@ const getCitation = async (url: string) => {
     const bibtex: string = bibtexFromEntryData(entryData)
 
     return {bibtex, entryData}
-}
-
-export { 
-    getCitation, 
-    firstWordsFromTitle, 
-    createCiteKey, 
-    upperLettersInBibTex, 
-    domainFromUrl, 
-    bibtexFromEntryData
 }

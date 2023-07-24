@@ -19,13 +19,16 @@
     "class-variance-authority": "^0.6.1",
     "clsx": "^1.2.1",
     "lucide-react": "^0.260.0",
+    "mongoose": "^7.4.1",
     "next": "^13.4.2",
     "next-auth": "^4.22.1",
+    "parse-domain": "^7.0.1",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "superjson": "1.12.2",
     "tailwind-merge": "^1.13.2",
     "tailwindcss-animate": "^1.0.6",
+    "url-metadata": "^2.5.0",
     "zod": "^3.21.4"
   },
   "devDependencies": {

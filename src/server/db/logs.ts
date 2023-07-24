@@ -6,11 +6,13 @@ const EntryModel = mongoose.models.bibtexEntry || mongoose.model('bibtexEntry', 
   url: String,
 }));
 
-async function createLogEntry(url: any) {
+async function createLogEntry(url: string) {
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
   const itemObj = new EntryModel({
     date: Date.now(),
     url: url,
   });
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-call
   await itemObj.save();
 }
 

@@ -17,7 +17,7 @@ export const exampleRouter = createTRPCRouter({
 
   getSecretMessage: protectedProcedure.query(async ({ ctx }) => {
     console.log(">> session", ctx.session.user);
-    simulateDelay(500, 1000);
+    await simulateDelay(500, 1000);
     return "you can now see this secret message!";
   }),
 });

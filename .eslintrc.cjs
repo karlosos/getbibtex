@@ -29,6 +29,12 @@ const config = {
       },
     ],
     "@typescript-eslint/no-unused-vars": ["warn", { argsIgnorePattern: "^_" }],
+    "@typescript-eslint/no-misused-promises": "warn",
+    "@typescript-eslint/no-non-null-assertion": "off",
+    "@typescript-eslint/no-var-requires": "warn",
+    "@typescript-eslint/restrict-template-expressions": "warn",
+
+    "@next/next/no-img-element": "off",
   },
 };
 

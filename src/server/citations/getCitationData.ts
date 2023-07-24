@@ -1,5 +1,5 @@
 import urlMetadata from "url-metadata";
-import { EntryData } from "./types";
+import { type EntryData } from "./types";
 import { createCiteKey } from "./createCitekey";
 import { getCurrentDate } from "@/utils/current-date";
 
@@ -22,7 +22,7 @@ function domainFromUrl(url: string): string {
   // based on regular expression https://regex101.com/r/MOIFTy/3
   const domainRegex = /^(?:https?:)?(?:\/\/)?(?:[^@\n]+@)?(?:www\.)?([^:/\n]+)/;
   const match = url.match(domainRegex);
-  let domain: string = "";
+  let domain = "";
   if (match != null) {
     domain = match.at(1) ?? "";
   }
@@ -35,7 +35,7 @@ function bibtexFromEntryData(entryData: EntryData): string {
   const title = upperLettersInBibTex(
     `${entryData.title} --- ${entryData.website}`
   );
-  let bibtex: string = `@misc{${createCiteKey(entryData)},
+  const bibtex = `@misc{${createCiteKey(entryData)},
 \tauthor = {${entryData.author}},
 \ttitle = {${title}},
 \thowpublished = {\\url{${entryData.url}}},

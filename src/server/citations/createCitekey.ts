@@ -1,12 +1,13 @@
-import { EntryData } from "./types"
+import { type EntryData } from "./types"
 import { parseDomain, ParseResultType } from "parse-domain";
 
 // This function won't work in the frontend. Maybe pass the parseDomain from the `getCitationData.ts` into here
 export function createCiteKey(entryData: EntryData): string {
-    let citekey: string = ""
+    let citekey = ""
     const parseResult = parseDomain(entryData.website)
     if (parseResult.type === ParseResultType.Listed) {
         const { domain } = parseResult
+        // eslint-disable-next-line @typescript-eslint/restrict-plus-operands
         citekey = "" + domain
     }
     citekey = citekey + firstWordsFromTitle(entryData.title)
@@ -16,7 +17,7 @@ export function createCiteKey(entryData: EntryData): string {
 }
 
 function firstWordsFromTitle(title: string): string {
-    let words = title.split(" ")
+    const words = title.split(" ")
     let firstWords = ""
     let numWords = 0
 

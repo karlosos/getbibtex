@@ -10,7 +10,7 @@ export const citationsRouter = createTRPCRouter({
     .mutation(async ({ input }) => {
       try {
         const res = getCitation(input.url);
-        saveRequestToDb(input.url);
+        saveRequestToDb(input.url).catch((e) => console.log(">> db saving", e));
 
         return res;
       } catch (e) {

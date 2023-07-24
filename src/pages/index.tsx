@@ -6,14 +6,13 @@ import {
   ArrowRightCircle,
   Check,
   Copy,
-  Edit,
   Github,
   Globe,
   PlusSquare,
 } from "lucide-react";
 import { useRef, useState } from "react";
 import { Textarea } from "@/ui/textarea";
-import { EntryData } from "@/server/citations/types";
+import type { EntryData } from "@/server/citations/types";
 import { getCurrentDate } from "@/utils/current-date";
 import { useCopyToClipboard } from "@/utils/copy-to-clipboard";
 
@@ -43,7 +42,7 @@ export default function Home() {
           setBibtexEntry(data.bibtex);
           setBibtexEntryData(data.entryData);
         },
-        onError: (e) => {
+        onError: (_e) => {
           setIsError(true);
         },
       }
@@ -119,7 +118,11 @@ export default function Home() {
                 Looks like given url caused some problems. Try again with
                 different one.
               </p>
-              <img className="mt-4 w-[500px]" src="./error.webp"></img>
+              <img
+                className="mt-4 w-[500px]"
+                src="./error.webp"
+                alt="Illustration when error happens."
+              ></img>
             </div>
           </>
         )}
@@ -187,12 +190,14 @@ const HeaderText = () => (
 );
 
 const CopyToClipboardButton = ({ value }: { value: string }) => {
+  // TODO: fix linting. why i cannot disable it in .eslintrc.cjs?
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [_, copy] = useCopyToClipboard();
   const [isCopied, setIsCopied] = useState(false);
   const timerId = useRef<NodeJS.Timeout | null>();
 
-  const handleCopy = () => {
-    copy(value);
+  const handleCopy = async () => {
+    await copy(value);
     setIsCopied(true);
     if (timerId.current) {
       clearTimeout(timerId.current);
@@ -208,6 +213,8 @@ const CopyToClipboardButton = ({ value }: { value: string }) => {
     <Button
       className="duration-250 gap-2"
       disabled={isCopied}
+      // TODO: fix linting. why i cannot disable it in .eslintrc.cjs?
+      // eslint-disable-next-line @typescript-eslint/no-misused-promises
       onClick={handleCopy}
     >
       {isCopied ? (

@@ -4,16 +4,18 @@ import { Input } from "@/ui/input";
 import { Button } from "@/ui/button";
 import {
   ArrowRightCircle,
+  Check,
   Copy,
   Edit,
   Github,
   Globe,
   PlusSquare,
 } from "lucide-react";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { Textarea } from "@/ui/textarea";
 import { EntryData } from "@/server/citations/types";
 import { getCurrentDate } from "@/utils/current-date";
+import { useCopyToClipboard } from "@/utils/copy-to-clipboard";
 
 export default function Home() {
   const [url, setUrl] = useState("");
@@ -91,10 +93,7 @@ export default function Home() {
                   <Edit className="w-4" />
                   Advanced editing
                 </Button> */}
-                <Button className="gap-2">
-                  <Copy className="w-4" />
-                  Copy to clipboard
-                </Button>
+                <CopyToClipboardButton value={bibtexEntry} />
               </div>
               <div className="mt-4">
                 <span>
@@ -186,3 +185,42 @@ const HeaderText = () => (
     </p>
   </>
 );
+
+const CopyToClipboardButton = ({ value }: { value: string }) => {
+  const [_, copy] = useCopyToClipboard();
+  const [isCopied, setIsCopied] = useState(false);
+  const timerId = useRef<NodeJS.Timeout | null>();
+
+  const handleCopy = () => {
+    copy(value);
+    setIsCopied(true);
+    if (timerId.current) {
+      clearTimeout(timerId.current);
+    }
+
+    timerId.current = setTimeout(() => {
+      setIsCopied(false);
+      timerId.current = null;
+    }, 500);
+  };
+
+  return (
+    <Button
+      className="duration-250 gap-2"
+      disabled={isCopied}
+      onClick={handleCopy}
+    >
+      {isCopied ? (
+        <>
+          <Check className="w-4" />
+          Copied!
+        </>
+      ) : (
+        <>
+          <Copy className="w-4" />
+          Copy to clipboard
+        </>
+      )}
+    </Button>
+  );
+};

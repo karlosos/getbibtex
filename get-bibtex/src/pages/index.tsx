@@ -12,29 +12,46 @@ import {
 } from "lucide-react";
 import { useState } from "react";
 import { Textarea } from "@/ui/textarea";
+import { EntryData } from "@/server/citations/types";
+import { getCurrentDate } from "@/utils/current-date";
 
 export default function Home() {
-  const getBibtex = api.example.getBibtexInfo.useMutation();
+  const [url, setUrl] = useState("");
+  const [bibtexEntry, setBibtexEntry] = useState("");
+  const [bibtexEntryData, setBibtexEntryData] = useState<EntryData | null>(
+    null
+  );
+  const [isError, setIsError] = useState(false);
 
-  const handleGetBibtex = (url: string) => {
+  const getBibtex = api.citations.getBibtexInfo.useMutation();
+
+  const handleGetBibtex = () => {
+    if (!url) {
+      return;
+    }
+
+    setBibtexEntry("");
+    setBibtexEntryData(null);
+    setIsError(false);
+
     getBibtex.mutate(
       { url: url },
       {
         onSuccess: (data) => {
-          setBibtexEntry(
-            data.bibtexEntry.author + "\n" + data.bibtexEntry.title
-          );
+          setBibtexEntry(data.bibtex);
+          setBibtexEntryData(data.entryData);
+        },
+        onError: (e) => {
+          setIsError(true);
         },
       }
     );
   };
 
-  const [bibtexEntry, setBibtexEntry] = useState("");
-
   return (
     <Layout>
       <main className="flex flex-col items-center">
-        <div className="mt-2 lg:mt-8 flex h-80 w-full max-w-4xl flex-col items-center rounded-xl bg-gradient-to-b from-[#d5edd7] to-[#f8eec4] p-2 text-[#11124d] shadow-sm">
+        <div className="mt-2 flex h-80 w-full max-w-4xl flex-col items-center rounded-xl bg-gradient-to-b from-[#d5edd7] to-[#f8eec4] p-2 text-[#11124d] shadow-sm lg:mt-8">
           <div className="space-x-1">
             <UrlPill />
             <GitHubPill />
@@ -43,10 +60,15 @@ export default function Home() {
           <HeaderText />
         </div>
         <div className="-mt-12 flex w-full max-w-2xl items-center gap-4 rounded-xl bg-white p-4 shadow-xl">
-          <Input type="text" placeholder="URL to website/article" />
+          <Input
+            type="text"
+            placeholder="URL to website/article"
+            value={url}
+            onChange={(e) => setUrl(e.target.value)}
+          />
           <Button
             className="gap-2 whitespace-nowrap"
-            onClick={() => handleGetBibtex("urlhehe")}
+            onClick={() => handleGetBibtex()}
           >
             {getBibtex.isLoading ? (
               <span className="loading"></span>
@@ -56,11 +78,11 @@ export default function Home() {
             Get BibTeX
           </Button>
         </div>
-        <div className="mt-10 w-full max-w-2xl p-4 border border-primary/20 rounded-md shadow-sm z-10 bg-slate-50/50">
-          {bibtexEntry && (
+        {bibtexEntry && bibtexEntryData && (
+          <div className="z-10 mt-10 w-full max-w-2xl rounded-md border border-primary/20 bg-slate-50/50 p-4 shadow-sm">
             <>
               <Textarea
-                className="bg-white h-48"
+                className="h-48 bg-white"
                 value={bibtexEntry}
                 onChange={(e) => setBibtexEntry(e.target.value)}
               />
@@ -74,9 +96,34 @@ export default function Home() {
                   Copy to clipboard
                 </Button>
               </div>
+              <div className="mt-4">
+                <span>
+                  {bibtexEntryData.author && bibtexEntryData.author + ". "}
+                </span>
+                <span className="italic">
+                  {bibtexEntryData.title +
+                    " --- " +
+                    bibtexEntryData.website +
+                    ". "}{" "}
+                </span>
+                <a href={bibtexEntryData.url}>{bibtexEntryData.url}</a>,
+                <span> [Accessed {getCurrentDate()}]</span>
+              </div>
             </>
-          )}
-        </div>
+          </div>
+        )}
+        {isError && (
+          <>
+            <div className="mt-12 text-center">
+              <h3 className="text-xl font-bold">Something bad happened</h3>
+              <p>
+                Looks like given url caused some problems. Try again with
+                different one.
+              </p>
+              <img className="mt-4 w-[500px]" src="./error.webp"></img>
+            </div>
+          </>
+        )}
       </main>
     </Layout>
   );
@@ -133,9 +180,9 @@ const HeaderText = () => (
     <p className="mt-4 max-w-xl">
       Paste URL below and generate BibTeX citation. Keep in mind that most
       educators and professionals do not consider it appropriate to use tertiary
-      sources such as encyclopedias as a sole source for any information — citing
-      an encyclopedia as an important reference in footnotes or bibliographies
-      may result in censure or a failing grade.{" "}
+      sources such as encyclopedias as a sole source for any information —
+      citing an encyclopedia as an important reference in footnotes or
+      bibliographies may result in censure or a failing grade.{" "}
     </p>
   </>
 );

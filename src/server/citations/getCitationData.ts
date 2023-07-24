@@ -5,7 +5,6 @@ import { getCurrentDate } from "@/utils/current-date";
 
 export const getCitation = async (url: string) => {
   const metadata = await urlMetadata(url);
-  console.log('>> metadata', metadata);
   const domain = domainFromUrl(url);
   const entryData: EntryData = {
     title: metadata.title,

@@ -2,12 +2,12 @@
 
 <div align="center">
 
-[![Build and Deploy](https://github.com/karlosos/url_to_bibtex/actions/workflows/main.yml/badge.svg)](https://github.com/karlosos/url_to_bibtex/actions/workflows/main.yml)
-[![NextJS](https://img.shields.io/badge/code-NextJS-blueviolet.svg?style=flat-square&logo=react&color=a8dcec&logoColor=white)](/#)
-[![Typescript](https://img.shields.io/badge/language-typescript-blueviolet.svg?style=flat-square&logo=typescript&color=a8dcec&logoColor=white)](/#)
-[![GeistUI](https://img.shields.io/badge/styling-geist--ui-blueviolet.svg?style=flat-square&logo=&color=a8dcec&logoColor=white)](/#)
-[![Prettier](https://img.shields.io/badge/formatting-prettier-blueviolet.svg?style=flat-square&logo=prettier&color=a8dcec&logoColor=white)](/#)
-[![Vercel](https://img.shields.io/badge/deployed_on-vercel-blueviolet.svg?style=flat-square&logo=vercel&color=a8dcec&logoColor=white)](/#)
+[![NextJS](https://img.shields.io/badge/NextJS-blueviolet.svg?style=flat-square&logo=react&color=3a005a&logoColor=white)](/#)
+[![tRPC](https://img.shields.io/badge/tRPC-blueviolet.svg?style=flat-square&logo=trpc&color=3a005a&logoColor=white)](/#)
+[![Typescript](https://img.shields.io/badge/typescript-blueviolet.svg?style=flat-square&logo=typescript&color=3a005a&logoColor=white)](/#)
+[![Tailwind](https://img.shields.io/badge/tailwind-blueviolet.svg?style=flat-square&logo=tailwindcss&color=3a005a&logoColor=white)](/#)
+[![Prettier](https://img.shields.io/badge/prettier-blueviolet.svg?style=flat-square&logo=prettier&color=3a005a&logoColor=white)](/#)
+[![Vercel](https://img.shields.io/badge/vercel-blueviolet.svg?style=flat-square&logo=vercel&color=3a005a&logoColor=white)](/#)
 </div>
 
 ***
@@ -27,7 +27,7 @@
 <tbody>
 <td align="center">
 <img width="2000" height="0"><br>
-Website: <b><a href="https://url-to-bibtex.vercel.app/">url-to-bibtex.vercel.app 🌐</a></b><br>
+Website: <b><a href="https://getbibtex.com/">getbibtex.com 🌐</a></b><br>
 <img width="2000" height="0">
 </td>
 </tbody>
@@ -50,8 +50,4 @@ This project was more goal oriented rather than education oriented. I've mostly 
 
 ## Deployment
 
-Add environmental variable (project secrets on vercel):
-
-```
-MONGO_URI=
-```
+Add environmental variable (project secrets on vercel) based on `.env.example`.

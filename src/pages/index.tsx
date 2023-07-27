@@ -15,8 +15,12 @@ import { Textarea } from "@/ui/textarea";
 import type { EntryData } from "@/server/citations/types";
 import { getCurrentDate } from "@/utils/current-date";
 import { useCopyToClipboard } from "@/utils/copy-to-clipboard";
+import { useSession } from "next-auth/react";
+import Link from "next/link";
+import { PersonIcon } from "@radix-ui/react-icons";
 
 export default function Home() {
+  const { data: sessionData } = useSession();
   const [url, setUrl] = useState("");
   const [bibtexEntry, setBibtexEntry] = useState("");
   const [bibtexEntryData, setBibtexEntryData] = useState<EntryData | null>(
@@ -52,6 +56,14 @@ export default function Home() {
   return (
     <Layout>
       <main className="flex flex-col items-center">
+        {sessionData && (
+          <Link className="absolute left-4 top-8 " href="/admin">
+            <Button variant="outline" className="gap-2">
+              <PersonIcon />
+              Admin
+            </Button>
+          </Link>
+        )}
         <div className="mt-2 flex h-80 w-full max-w-4xl flex-col items-center rounded-xl bg-gradient-to-b from-[#d5edd7] to-[#f8eec4] p-2 text-[#11124d] shadow-sm lg:mt-8">
           <div className="space-x-1">
             <UrlPill />

@@ -8,9 +8,13 @@ import {
   Copy,
   Github,
   Globe,
+  Lightbulb,
+  Pi,
+  PlusCircle,
   PlusSquare,
+  User,
 } from "lucide-react";
-import { useRef, useState } from "react";
+import React, { useRef, useState } from "react";
 import { Textarea } from "@/ui/textarea";
 import type { EntryData } from "@/server/citations/types";
 import { getCurrentDate } from "@/utils/current-date";
@@ -66,9 +70,30 @@ export default function Home() {
         )}
         <div className="mt-2 flex h-80 w-full max-w-4xl flex-col items-center rounded-xl bg-gradient-to-b from-[#d5edd7] to-[#f8eec4] p-2 text-[#11124d] shadow-sm lg:mt-8">
           <div className="space-x-1">
-            <UrlPill />
-            <GitHubPill />
-            <FeatureRequestPill />
+            <Pill link="https://getbibtex.com">
+              <>
+                <Globe className="h-3" />
+                <span>getbibtex.com</span>
+              </>
+            </Pill>
+            <Pill link="https://github.com/karlosos/getbibtex">
+              <>
+                <Github className="h-3" />
+                <span>star me on github</span>
+              </>
+            </Pill>
+            <Pill link="https://github.com/karlosos/getbibtex/discussions/categories/ideas">
+              <>
+                <Lightbulb className="h-3" />
+                <span>request a feature</span>
+              </>
+            </Pill>
+            <Pill link="https://www.dzialowski.eu/">
+              <>
+                <User className="h-3" />
+                <span>dzialowski.eu</span>
+              </>
+            </Pill>
           </div>
           <HeaderText />
         </div>
@@ -143,47 +168,19 @@ export default function Home() {
   );
 }
 
-const UrlPill = () => (
+const Pill = ({
+  link,
+  children,
+}: {
+  link: string;
+  children: React.ReactElement;
+}) => (
   <button
     type="button"
     className="group mt-4 whitespace-nowrap rounded-lg border border-primary/20 bg-white/50 px-2 py-1.5 text-sm font-medium text-slate-700 shadow-lg shadow-blue-500/5 transition-all hover:shadow-blue-500/10"
   >
-    <a href="https://getbibtex.com">
-      <div className="inline-flex items-center">
-        <Globe className="h-3" />
-        <span>getbibtex.com</span>
-      </div>
-    </a>
-  </button>
-);
-
-const GitHubPill = () => (
-  <button
-    type="button"
-    className="group mt-4 whitespace-nowrap rounded-lg border border-primary/20 bg-white/50 px-2 py-1.5 text-sm font-medium text-slate-700 shadow-lg shadow-blue-500/5 transition-all hover:shadow-blue-500/10"
-  >
-    <a target="_blank" href="https://github.com/karlosos/getbibtex">
-      <div className="inline-flex items-center">
-        <Github className="h-3" />
-        <span>star me on github</span>
-      </div>
-    </a>
-  </button>
-);
-
-const FeatureRequestPill = () => (
-  <button
-    type="button"
-    className="group mt-4 whitespace-nowrap rounded-lg border border-primary/20 bg-white/50 px-2 py-1.5 text-sm font-medium text-slate-700 shadow-lg shadow-blue-500/5 transition-all hover:shadow-blue-500/10"
-  >
-    <a
-      target="_blank"
-      href="https://github.com/karlosos/getbibtex/discussions/categories/ideas"
-    >
-      <div className="inline-flex items-center">
-        <PlusSquare className="h-3" />
-        <span>request a feature</span>
-      </div>
+    <a target="_blank" href={link}>
+      <div className="inline-flex items-center">{children}</div>
     </a>
   </button>
 );

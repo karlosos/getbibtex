@@ -3,12 +3,13 @@ import { SessionProvider } from "next-auth/react";
 import { type AppType } from "next/app";
 import { api } from "@/utils/api";
 import "@/styles/globals.css";
-import { Inter } from "next/font/google";
+import { Inter as FontSans } from "next/font/google";
 import Script from "next/script";
+import { cn } from "@/utils/cn";
 
-const inter = Inter({
+const fontSans = FontSans({
   subsets: ["latin"],
-  variable: "--font-inter",
+  variable: "--font-sans",
 });
 
 const MyApp: AppType<{ session: Session | null }> = ({
@@ -17,6 +18,11 @@ const MyApp: AppType<{ session: Session | null }> = ({
 }) => {
   return (
     <>
+      <style jsx global>{`
+        html {
+          --font-sans: ${fontSans.variable};
+        }
+      `}</style>
       <Script
         src="https://www.googletagmanager.com/gtag/js?id=G-J3JZ08YKE2"
         strategy="afterInteractive"
@@ -31,7 +37,7 @@ const MyApp: AppType<{ session: Session | null }> = ({
         `}
       </Script>
       <SessionProvider session={session}>
-        <main className={`${inter.variable} font-sans`}>
+        <main>
           <Component {...pageProps} />
         </main>
       </SessionProvider>

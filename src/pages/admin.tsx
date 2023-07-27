@@ -18,10 +18,13 @@ import {
 } from "@/ui/card";
 import { Overview } from "@/components/admin/overview";
 import { RecentSales } from "@/components/admin/recent-sales";
+import { Layout } from "@/ui/layout";
 
 export default function Admin() {
   return (
-    <Dashboard />
+    <Layout>
+      <Dashboard />
+    </Layout>
   );
 }
 

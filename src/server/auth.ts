@@ -49,7 +49,7 @@ export const authOptions: NextAuthOptions = {
       ) {
         return true;
       }
-      return false;
+      return '/auth/unauthorized';
     },
   },
   providers: [

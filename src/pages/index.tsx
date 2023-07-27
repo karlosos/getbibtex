@@ -9,9 +9,6 @@ import {
   Github,
   Globe,
   Lightbulb,
-  Pi,
-  PlusCircle,
-  PlusSquare,
   User,
 } from "lucide-react";
 import React, { useRef, useState } from "react";
@@ -21,10 +18,8 @@ import { getCurrentDate } from "@/utils/current-date";
 import { useCopyToClipboard } from "@/utils/copy-to-clipboard";
 import { useSession } from "next-auth/react";
 import Link from "next/link";
-import { PersonIcon } from "@radix-ui/react-icons";
 
 export default function Home() {
-  const { data: sessionData } = useSession();
   const [url, setUrl] = useState("");
   const [bibtexEntry, setBibtexEntry] = useState("");
   const [bibtexEntryData, setBibtexEntryData] = useState<EntryData | null>(
@@ -60,41 +55,8 @@ export default function Home() {
   return (
     <Layout>
       <main className="flex flex-col items-center">
-        {sessionData && (
-          <Link className="absolute left-4 top-8 " href="/admin">
-            <Button variant="outline" className="gap-2">
-              <PersonIcon />
-              Admin
-            </Button>
-          </Link>
-        )}
         <div className="mt-2 flex h-80 w-full max-w-4xl flex-col items-center rounded-xl bg-gradient-to-b from-[#d5edd7] to-[#f8eec4] p-2 text-[#11124d] shadow-sm lg:mt-8">
-          <div className="space-x-1">
-            <Pill link="https://getbibtex.com">
-              <>
-                <Globe className="h-3" />
-                <span>getbibtex.com</span>
-              </>
-            </Pill>
-            <Pill link="https://github.com/karlosos/getbibtex">
-              <>
-                <Github className="h-3" />
-                <span>star me on github</span>
-              </>
-            </Pill>
-            <Pill link="https://github.com/karlosos/getbibtex/discussions/categories/ideas">
-              <>
-                <Lightbulb className="h-3" />
-                <span>request a feature</span>
-              </>
-            </Pill>
-            <Pill link="https://www.dzialowski.eu/">
-              <>
-                <User className="h-3" />
-                <span>dzialowski.eu</span>
-              </>
-            </Pill>
-          </div>
+          <Navigation />
           <HeaderText />
         </div>
         <div className="-mt-12 flex w-full max-w-2xl items-center gap-4 rounded-xl bg-white p-4 shadow-xl">
@@ -167,6 +129,52 @@ export default function Home() {
     </Layout>
   );
 }
+
+const Navigation = () => {
+  const { data: sessionData } = useSession();
+
+  return (
+    <div className="space-x-1">
+      {sessionData && (
+        <Link href="/admin">
+          <button
+            type="button"
+            className="group mt-4 whitespace-nowrap rounded-lg border border-primary/20 bg-white/50 px-2 py-1.5 text-sm font-medium text-slate-700 shadow-lg shadow-blue-500/5 transition-all hover:shadow-blue-500/10"
+          >
+            <div className="inline-flex items-center">
+              <User className="h-3" />
+              <span>admin</span>
+            </div>
+          </button>
+        </Link>
+      )}
+      <Pill link="https://getbibtex.com">
+        <>
+          <Globe className="h-3" />
+          <span>getbibtex.com</span>
+        </>
+      </Pill>
+      <Pill link="https://github.com/karlosos/getbibtex">
+        <>
+          <Github className="h-3" />
+          <span>star me on github</span>
+        </>
+      </Pill>
+      <Pill link="https://github.com/karlosos/getbibtex/discussions/categories/ideas">
+        <>
+          <Lightbulb className="h-3" />
+          <span>request a feature</span>
+        </>
+      </Pill>
+      <Pill link="https://www.dzialowski.eu/">
+        <>
+          <User className="h-3" />
+          <span>dzialowski.eu</span>
+        </>
+      </Pill>
+    </div>
+  );
+};
 
 const Pill = ({
   link,

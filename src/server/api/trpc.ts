@@ -110,11 +110,6 @@ const enforceUserIsAuthed = t.middleware(({ ctx, next }) => {
     throw new TRPCError({ code: "UNAUTHORIZED" });
   }
 
-  // Allow only the_karlosos to access admin page
-  if (ctx.session.user.name !== "the_karlosos") {
-    throw new TRPCError({ code: "UNAUTHORIZED" });
-  }
-
   return next({
     ctx: {
       // infers the `session` as non-nullable

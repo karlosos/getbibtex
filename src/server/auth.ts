@@ -42,6 +42,15 @@ export const authOptions: NextAuthOptions = {
         id: token.sub,
       },
     }),
+    signIn: ({ user, account, profile, email, credentials }) => {
+      if (
+        user.name === "the_karlosos" &&
+        user.email === "karlososhd@gmail.com"
+      ) {
+        return true;
+      }
+      return false;
+    },
   },
   providers: [
     DiscordProvider({

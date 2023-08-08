@@ -2,51 +2,43 @@ import { Bar, BarChart, ResponsiveContainer, XAxis, YAxis } from "recharts"
 
 const data = [
   {
-    name: "Jan",
+    name: "Week 1",
     total: Math.floor(Math.random() * 5000) + 1000,
   },
   {
-    name: "Feb",
+    name: "Week 2",
     total: Math.floor(Math.random() * 5000) + 1000,
   },
   {
-    name: "Mar",
+    name: "Week 3",
     total: Math.floor(Math.random() * 5000) + 1000,
   },
   {
-    name: "Apr",
+    name: "Week 4",
     total: Math.floor(Math.random() * 5000) + 1000,
   },
   {
-    name: "May",
+    name: "Week 5",
     total: Math.floor(Math.random() * 5000) + 1000,
   },
   {
-    name: "Jun",
+    name: "Week 6",
     total: Math.floor(Math.random() * 5000) + 1000,
   },
   {
-    name: "Jul",
+    name: "Week 7",
     total: Math.floor(Math.random() * 5000) + 1000,
   },
   {
-    name: "Aug",
+    name: "Week 8",
     total: Math.floor(Math.random() * 5000) + 1000,
   },
   {
-    name: "Sep",
+    name: "Week 9",
     total: Math.floor(Math.random() * 5000) + 1000,
   },
   {
-    name: "Oct",
-    total: Math.floor(Math.random() * 5000) + 1000,
-  },
-  {
-    name: "Nov",
-    total: Math.floor(Math.random() * 5000) + 1000,
-  },
-  {
-    name: "Dec",
+    name: "Week 10",
     total: Math.floor(Math.random() * 5000) + 1000,
   },
 ]
@@ -68,7 +60,7 @@ export function Overview() {
           tickLine={false}
           axisLine={false}
           // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
-          tickFormatter={(value: any) => `$${value}`}
+          tickFormatter={(value: any) => `${value}`}
         />
         <Bar dataKey="total" fill="#adfa1d" radius={[4, 4, 0, 0]} />
       </BarChart>

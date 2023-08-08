@@ -1,13 +1,20 @@
-import { Input } from "@/ui/input"
+import { Input } from "@/ui/input";
+import { cn } from "@/utils/cn";
 
-export function Search() {
+type AdditionalProps = { disabled?: boolean };
+
+export function Search({
+  className,
+  disabled = false,
+}: React.HTMLAttributes<HTMLDivElement> & AdditionalProps) {
   return (
-    <div>
+    <div className={cn(className)}>
       <Input
         type="search"
         placeholder="Search..."
         className="md:w-[100px] lg:w-[300px]"
+        disabled={disabled}
       />
     </div>
-  )
+  );
 }

@@ -16,10 +16,23 @@ async function createLogEntry(url: string) {
   await itemObj.save();
 }
 
-export const saveRequestToDb = async (url: string) => {
+const saveRequestToDb = async (url: string) => {
   await db.connect();
   await createLogEntry(url);
   await db.closeConnection();
 
   return;
+}
+
+async function getTotalUrlsCount() {
+  await db.connect();
+  const totalUrlsCount = await EntryModel.countDocuments();
+  await db.closeConnection();
+
+  return totalUrlsCount;
+}
+
+export const bookkeepingService = {
+  saveRequestToDb: saveRequestToDb,
+  getTotalUrlsCount: getTotalUrlsCount,
 }

@@ -16,6 +16,8 @@ import {
 import { Overview } from "@/components/admin/overview";
 import { RecentUrls as RecentUrls } from "@/components/admin/recent-urls";
 import { Layout } from "@/ui/layout";
+import { api } from "@/utils/api";
+import { Skeleton } from "@/ui/skeleton";
 
 export default function Admin() {
   return (
@@ -35,6 +37,7 @@ export function Dashboard() {
   //   undefined, // no input
   //   { enabled: sessionData?.user !== undefined }
   // );
+  const { data: totalUrlsCount } = api.stats.getTotalUrlsCount.useQuery();
 
   return (
     <>
@@ -109,10 +112,21 @@ export function Dashboard() {
                   </CardHeader>
                   {/* TODO: implement comparison to last month */}
                   <CardContent>
-                    <div className="text-2xl font-bold">312,043</div>
-                    <p className="text-xs text-muted-foreground">
-                      +20.1% from last month
-                    </p>
+                    {totalUrlsCount ? (
+                      <>
+                        <div className="text-2xl font-bold">
+                          {totalUrlsCount}
+                        </div>
+                        <p className="text-xs text-muted-foreground">
+                          +20.1% from last month
+                        </p>
+                      </>
+                    ) : (
+                      <>
+                        <Skeleton className="mb-1 h-7 w-[100px]" />
+                        <Skeleton className="h-4 w-[150px]" />
+                      </>
+                    )}
                   </CardContent>
                 </Card>
                 {/* TODO: remove text-muted-foreground when implemented */}

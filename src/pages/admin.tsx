@@ -38,6 +38,8 @@ export function Dashboard() {
   //   { enabled: sessionData?.user !== undefined }
   // );
   const { data: totalUrlsCount } = api.stats.getTotalUrlsCount.useQuery();
+  const { data: last7DaysUrlsCount } =
+    api.stats.getLast7DaysUrlsCount.useQuery();
 
   return (
     <>
@@ -224,7 +226,15 @@ export function Dashboard() {
                   <CardHeader>
                     <CardTitle>Recent URLs</CardTitle>
                     <CardDescription>
-                      Users generated 265 entries this week.
+                      {/* TODO: there is a problem with hydration here */}
+                      {last7DaysUrlsCount ? (
+                        <div>
+                          Users generated {last7DaysUrlsCount} entries in the
+                          last 7 days.
+                        </div>
+                      ) : (
+                        <Skeleton className="h-5 w-[150px]" />
+                      )}
                     </CardDescription>
                   </CardHeader>
                   <CardContent>

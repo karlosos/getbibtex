@@ -227,13 +227,11 @@ export function Dashboard() {
                     <CardTitle>Recent URLs</CardTitle>
                     <CardDescription>
                       {/* TODO: there is a problem with hydration here */}
-                      {last7DaysUrlsCount ? (
-                        <div>
+                      {last7DaysUrlsCount && (
+                        <>
                           Users generated {last7DaysUrlsCount} entries in the
                           last 7 days.
-                        </div>
-                      ) : (
-                        <Skeleton className="h-5 w-[150px]" />
+                        </>
                       )}
                     </CardDescription>
                   </CardHeader>

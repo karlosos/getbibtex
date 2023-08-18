@@ -1,4 +1,3 @@
-import { z } from "zod";
 import { createTRPCRouter, publicProcedure } from "@/server/api/trpc";
 import { TRPCError } from "@trpc/server";
 import { bookkeepingService } from "@/server/db/logs";
@@ -21,7 +20,6 @@ export const statsRouter = createTRPCRouter({
   getRecentUrls: publicProcedure.query(async () => {
     try {
       const recentUrls = await bookkeepingService.getRecentUrls();
-      console.log('>> recentUrls', recentUrls);
       return recentUrls;
     } catch (e) {
       console.error(e);

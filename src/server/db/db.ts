@@ -2,10 +2,15 @@ import mongoose from 'mongoose';
 
 const MONGO_URI = process.env.MONGO_URI || 'PROVIDE_MONGO_URI';
 
+let connection: Promise<typeof mongoose> | null = null;
+
 async function connect() {
   try {
-    await mongoose.connect(MONGO_URI);
-    console.log('MongoDB connected');
+    if (connection === null) {
+      connection = mongoose.connect(MONGO_URI);
+      console.log('Connecting to MongoDB');
+    } 
+    await connection;
   } catch (err) {
     console.log(err);
   }

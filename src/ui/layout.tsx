@@ -10,7 +10,9 @@ export function Layout({ children }: { children: React.ReactElement }) {
         <meta name="author" content="Karol Dzialowski" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      {children}
+      <div>
+        {children}
+      </div>
     </>
   );
 }

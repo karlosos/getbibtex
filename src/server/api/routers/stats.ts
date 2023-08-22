@@ -4,10 +4,14 @@ import { bookkeepingService } from "@/server/db/logs";
 
 export const statsRouter = createTRPCRouter({
   // TODO: make this router protected
-  getTotalUrlsCount: publicProcedure.query(async () => {
+  getTotalUrls: publicProcedure.query(async () => {
     try {
       const totalUrlsCount = await bookkeepingService.getTotalUrlsCount();
-      return totalUrlsCount;
+      const weekChange = await bookkeepingService.getTotalUrlsCountWeekChange();
+      return {
+        count: totalUrlsCount,
+        weekChange: weekChange
+      };
     } catch (e) {
       console.error(e);
       throw new TRPCError({

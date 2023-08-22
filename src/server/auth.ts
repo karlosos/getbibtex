@@ -42,6 +42,7 @@ export const authOptions: NextAuthOptions = {
         id: token.sub,
       },
     }),
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     signIn: ({ user, account, profile, email, credentials }) => {
       if (
         user.name === "the_karlosos" &&

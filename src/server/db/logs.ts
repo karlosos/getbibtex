@@ -31,7 +31,7 @@ const saveRequestToDb = async (url: string) => {
   return;
 };
 
-async function getTotalUrlsCount(options: { tillDate?: Date } = {}) {
+async function getTotalUrlsCount() {
   await db.connect();
   const totalUrlsCount = await EntryModel.find().countDocuments().exec();
 

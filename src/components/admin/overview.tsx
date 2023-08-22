@@ -65,7 +65,7 @@ export function UsageChart({className}: {className?: string}) {
               fontSize={12}
               tickLine={false}
               axisLine={false}
-              // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
+              // eslint-disable-next-line @typescript-eslint/restrict-template-expressions, @typescript-eslint/no-explicit-any
               tickFormatter={(value: any) => `${value}`}
             />
             <Bar dataKey="total" fill="#50ad99" radius={[4, 4, 0, 0]} />

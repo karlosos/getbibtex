@@ -5,7 +5,6 @@ import { api } from "@/utils/api";
 import "@/styles/globals.css";
 import { Inter as FontSans } from "next/font/google";
 import Script from "next/script";
-import { cn } from "@/utils/cn";
 
 const fontSans = FontSans({
   subsets: ["latin"],

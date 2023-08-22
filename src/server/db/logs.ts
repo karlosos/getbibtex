@@ -58,7 +58,7 @@ async function getTotalUrlsCountWeekChange() {
   const weekAgoGrowth = weekAgoCount - twoWeeksAgoCount;
   const todayGrowth = todayCount - weekAgoCount;
 
-  const weekToWeekChange = todayGrowth/weekAgoGrowth;
+  const weekToWeekChange = ((todayGrowth - weekAgoGrowth)/weekAgoGrowth)*100;
   return weekToWeekChange.toFixed(2);
 }
 

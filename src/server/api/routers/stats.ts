@@ -1,13 +1,13 @@
 import { createTRPCRouter, publicProcedure } from "@/server/api/trpc";
 import { TRPCError } from "@trpc/server";
-import { bookkeepingService } from "@/server/db/logs";
+import { entriesService } from "@/server/db/entries-service";
 
 export const statsRouter = createTRPCRouter({
   // TODO: make this router protected
   getTotalUrls: publicProcedure.query(async () => {
     try {
-      const totalUrlsCount = await bookkeepingService.getTotalUrlsCount();
-      const weekChange = await bookkeepingService.getTotalUrlsCountWeekChange();
+      const totalUrlsCount = await entriesService.getTotalUrlsCount();
+      const weekChange = await entriesService.getTotalUrlsCountWeekChange();
       return {
         count: totalUrlsCount,
         weekChange: weekChange
@@ -23,7 +23,7 @@ export const statsRouter = createTRPCRouter({
 
   getRecentUrls: publicProcedure.query(async () => {
     try {
-      const recentUrls = await bookkeepingService.getRecentUrls();
+      const recentUrls = await entriesService.getRecentUrls();
       return recentUrls;
     } catch (e) {
       console.error(e);
@@ -36,8 +36,21 @@ export const statsRouter = createTRPCRouter({
 
   getLast7DaysUrlsCount: publicProcedure.query(async () => {
     try {
-      const urlsCount = await bookkeepingService.getLastDaysUrlsCount(7);
+      const urlsCount = await entriesService.getLastDaysUrlsCount(7);
       return urlsCount;
+    } catch (e) {
+      console.error(e);
+      throw new TRPCError({
+        code: "INTERNAL_SERVER_ERROR",
+        message: "Something wrong happened on the server.",
+      });
+    }
+  }),
+
+  getUrlsCountPerDays: publicProcedure.query(async () => {
+    try {
+      const result = await entriesService.getUrlsCountPerDays();
+      return result;
     } catch (e) {
       console.error(e);
       throw new TRPCError({

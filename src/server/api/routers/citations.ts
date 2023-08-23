@@ -1,8 +1,8 @@
 import { z } from "zod";
 import { createTRPCRouter, publicProcedure } from "@/server/api/trpc";
-import { getCitation } from "@/server/citations/getCitationData";
+import { getCitation } from "@/server/citations/get-citation-data";
 import { TRPCError } from "@trpc/server";
-import { bookkeepingService } from "@/server/db/logs";
+import { entriesService } from "@/server/db/entries-service";
 
 export const citationsRouter = createTRPCRouter({
   getBibtexInfo: publicProcedure
@@ -10,7 +10,7 @@ export const citationsRouter = createTRPCRouter({
     .mutation(async ({ input }) => {
       try {
         const res = getCitation(input.url);
-        bookkeepingService.saveRequestToDb(input.url).catch((e) => console.log(">> db saving", e));
+        entriesService.saveRequestToDb(input.url).catch((e) => console.log(">> db saving", e));
 
         return res;
       } catch (e) {

@@ -1,7 +1,7 @@
 import urlMetadata from "url-metadata";
 import { type EntryData } from "./types";
-import { createCiteKey } from "./createCitekey";
-import { getCurrentDate } from "@/utils/current-date";
+import { createCiteKey } from "./create-citekey";
+import { getCurrentDateString } from "@/utils/date-format";
 
 export const getCitation = async (url: string) => {
   const metadata = await urlMetadata(url);
@@ -31,7 +31,7 @@ function domainFromUrl(url: string): string {
 
 function bibtexFromEntryData(entryData: EntryData): string {
   // TODO: check if there are no invalid characters for bibtex
-  const currentDate = getCurrentDate();
+  const currentDate = getCurrentDateString();
   const title = upperLettersInBibTex(
     `${entryData.title} --- ${entryData.website}`
   );

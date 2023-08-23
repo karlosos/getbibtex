@@ -1,4 +1,4 @@
-export const getCurrentDate = () => {
+export const getCurrentDateString = () => {
     // Get the current date
     const currentDate = new Date();
 
@@ -11,4 +11,11 @@ export const getCurrentDate = () => {
     const formattedDate = `${day}-${month}-${year}`;
 
     return formattedDate;
+}
+
+export const formatDayMonth = (date: Date) => {
+    const day = String(date.getDate());
+    const month = String(date.getMonth()+1);
+
+    return day.padStart(2, '0') + '-' + month.padStart(2, '0');
 }

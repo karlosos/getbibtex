@@ -1,7 +1,7 @@
 import { type EntryData } from "./types"
 import { parseDomain, ParseResultType } from "parse-domain";
 
-// This function won't work in the frontend. Maybe pass the parseDomain from the `getCitationData.ts` into here
+// This function won't work in the frontend. Maybe pass the parseDomain from the `get-citation-data.ts` into here
 export function createCiteKey(entryData: EntryData): string {
     let citekey = ""
     const parseResult = parseDomain(entryData.website)

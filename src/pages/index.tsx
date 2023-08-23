@@ -14,7 +14,7 @@ import {
 import React, { useRef, useState } from "react";
 import { Textarea } from "@/ui/textarea";
 import type { EntryData } from "@/server/citations/types";
-import { getCurrentDate } from "@/utils/current-date";
+import { getCurrentDateString } from "@/utils/date-format";
 import { useCopyToClipboard } from "@/utils/copy-to-clipboard";
 import { useSession } from "next-auth/react";
 import Link from "next/link";
@@ -104,7 +104,7 @@ export default function Home() {
                     ". "}{" "}
                 </span>
                 <a href={bibtexEntryData.url}>{bibtexEntryData.url}</a>,
-                <span> [Accessed {getCurrentDate()}]</span>
+                <span> [Accessed {getCurrentDateString()}]</span>
               </div>
             </>
           </div>

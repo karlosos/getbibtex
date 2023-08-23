@@ -81,10 +81,47 @@ async function getLastDaysUrlsCount(numOfDays = 7) {
   return urlsCount;
 }
 
-export const bookkeepingService = {
+async function getUrlsCountPerDays() {
+  await db.connect();
+
+  // Set the time to midnight (00:00)
+  const currentDate = new Date();
+  currentDate.setHours(0, 0, 0, 0);
+
+  // Tomorrow
+  const tomorrowDate = new Date(currentDate);
+  tomorrowDate.setDate(currentDate.getDate() + 1);
+
+  // Create an array with dates
+  const dates = [tomorrowDate, currentDate];
+
+  const numOfDays = 7;
+  for (let i=1; i<numOfDays; i++) {
+    const previousDate = new Date(currentDate);
+    previousDate.setDate(currentDate.getDate() - i);
+    dates.push(previousDate);
+  }
+
+  // Calculate count for each day
+  const result = [];
+  for (let i=1; i<dates.length; i++) {
+    const count = await EntryModel.countDocuments({
+      date: { $lte: dates[i-1]!, $gte: dates[i]!},
+    }).exec();
+    result.push({
+      date: dates[i]!,
+      count: count,
+    })
+  }
+
+  return result;
+}
+
+export const entriesService = {
   saveRequestToDb,
   getTotalUrlsCount,
   getTotalUrlsCountWeekChange,
   getRecentUrls,
   getLastDaysUrlsCount,
+  getUrlsCountPerDays, 
 };

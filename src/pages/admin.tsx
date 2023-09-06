@@ -55,10 +55,12 @@ export default function Admin() {
 
 const OverviewTab = () => {
   const { data: totalUrlsStats } = api.stats.getTotalUrls.useQuery();
+  const { data: totalUsersStats } = api.stats.getTotalUsers.useQuery();
 
   return (
     <>
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+        {/* Total Urls Card */}
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">Total URLs</CardTitle>
@@ -77,7 +79,6 @@ const OverviewTab = () => {
               <line x1="6" x2="6" y1="20" y2="14"></line>
             </svg>
           </CardHeader>
-          {/* TODO: implement comparison to last month */}
           <CardContent>
             {totalUrlsStats ? (
               <>
@@ -94,8 +95,8 @@ const OverviewTab = () => {
             )}
           </CardContent>
         </Card>
-        {/* TODO: remove text-muted-foreground when implemented */}
-        <Card className="text-muted-foreground">
+        {/* Total Users Card */}
+        <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">Total Users</CardTitle>
             <svg
@@ -114,13 +115,22 @@ const OverviewTab = () => {
             </svg>
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">2350</div>
-            <p className="text-xs text-muted-foreground">
-              +180.1% from last month
-            </p>
+            {totalUsersStats ? (
+              <>
+                <div className="text-2xl font-bold">{totalUsersStats.count}</div>
+                <p className="text-xs text-muted-foreground">
+                  {totalUsersStats.weekChange}% w/w change
+                </p>
+              </>
+            ) : (
+              <>
+                <Skeleton className="mb-1 h-7 w-[100px]" />
+                <Skeleton className="h-4 w-[150px]" />
+              </>
+            )}
           </CardContent>
         </Card>
-        {/* TODO: remove text-muted-foreground when implemented */}
+        {/* Errors Card */}
         <Card className="text-muted-foreground">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">Errors</CardTitle>

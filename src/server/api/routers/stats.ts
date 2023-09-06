@@ -21,6 +21,23 @@ export const statsRouter = createTRPCRouter({
     }
   }),
 
+  getTotalUsers: publicProcedure.query(async () => {
+    try {
+      const totalUsersCount = await entriesService.getTotalUsersCount();
+      const weekChange = await entriesService.getUsersCountWeekChange();
+      return {
+        count: totalUsersCount,
+        weekChange: weekChange
+      };
+    } catch (e) {
+      console.error(e);
+      throw new TRPCError({
+        code: "INTERNAL_SERVER_ERROR",
+        message: "Something wrong happened on the server.",
+      });
+    }
+  }),
+
   getRecentUrls: publicProcedure.query(async () => {
     try {
       const recentUrls = await entriesService.getRecentUrls();

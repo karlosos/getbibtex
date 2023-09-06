@@ -130,6 +130,41 @@ async function getUrlsCountPerDays() {
   return result;
 }
 
+async function getTotalUsersCount() {
+  await db.connect();
+  const users = await EntryModel.find().distinct('userId');
+  const totalUsersCount = users.length;
+
+  return totalUsersCount;
+}
+
+async function getUsersCountWeekChange() {
+  const weekAgo = new Date();
+  weekAgo.setDate(weekAgo.getDate() - 7);
+
+  const twoWeeksAgo = new Date();
+  twoWeeksAgo.setDate(twoWeeksAgo.getDate() - 14);
+
+  const twoWeeksAgoUsersPromise = EntryModel.find({date: {$lte: twoWeeksAgo}}).distinct('userId').exec();
+  const weekAgoUsersPromise = EntryModel.find({date: {$lte: weekAgo}}).distinct('userId').exec();;
+  const allUsersPromise = EntryModel.find().distinct('userId').exec();
+
+  const [twoWeeksAgoUsers, weekAgoUsers, allUsers] = await Promise.all([
+    twoWeeksAgoUsersPromise,
+    weekAgoUsersPromise,
+    allUsersPromise,
+  ]);
+
+  const weekAgoGrowth = weekAgoUsers.length - twoWeeksAgoUsers.length;
+  const todayGrowth = allUsers.length - weekAgoUsers.length;
+
+  const weekToWeekChange =
+    ((todayGrowth - weekAgoGrowth) / weekAgoGrowth) * 100;
+  return weekToWeekChange.toFixed(2);
+}
+
+// TODO: remove this export object. export methods directly
+//       its easier to jump to definition
 export const entriesService = {
   saveRequestToDb,
   getTotalUrlsCount,
@@ -137,4 +172,6 @@ export const entriesService = {
   getRecentUrls,
   getLastDaysUrlsCount,
   getUrlsCountPerDays,
+  getTotalUsersCount,
+  getUsersCountWeekChange,
 };

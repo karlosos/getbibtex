@@ -43,7 +43,7 @@ async function getTotalUrlsCountWeekChange() {
   weekAgo.setDate(weekAgo.getDate() - 7);
 
   const twoWeeksAgo = new Date();
-  twoWeeksAgo.setDate(weekAgo.getDate() - 14);
+  twoWeeksAgo.setDate(twoWeeksAgo.getDate() - 14);
 
   const twoWeeksAgoCountPromise = EntryModel.countDocuments({
     date: { $lte: twoWeeksAgo},

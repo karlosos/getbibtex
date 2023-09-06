@@ -6,11 +6,16 @@ import { entriesService } from "@/server/db/entries-service";
 
 export const citationsRouter = createTRPCRouter({
   getBibtexInfo: publicProcedure
-    .input(z.object({ url: z.string() }))
+    .input(z.object({ url: z.string(), userId: z.string() }))
     .mutation(async ({ input }) => {
       try {
         const res = getCitation(input.url);
-        entriesService.saveRequestToDb(input.url).catch((e) => console.log(">> db saving", e));
+        entriesService
+          .saveRequestToDb({
+            url: input.url,
+            userId: input.userId,
+          })
+          .catch((e) => console.log(">> db saving", e));
 
         return res;
       } catch (e) {

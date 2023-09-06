@@ -18,12 +18,15 @@ import { getCurrentDateString } from "@/utils/date-format";
 import { useCopyToClipboard } from "@/utils/copy-to-clipboard";
 import { useSession } from "next-auth/react";
 import Link from "next/link";
+import { useUserId } from "@/utils/use-user-id";
 
 export default function Home() {
+  const userId = useUserId();
+
   const [url, setUrl] = useState("");
   const [bibtexEntry, setBibtexEntry] = useState("");
   const [bibtexEntryData, setBibtexEntryData] = useState<EntryData | null>(
-    null
+    null,
   );
   const [isError, setIsError] = useState(false);
 
@@ -39,7 +42,7 @@ export default function Home() {
     setIsError(false);
 
     getBibtex.mutate(
-      { url: url },
+      { url: url, userId: userId },
       {
         onSuccess: (data) => {
           setBibtexEntry(data.bibtex);
@@ -48,7 +51,7 @@ export default function Home() {
         onError: (_e) => {
           setIsError(true);
         },
-      }
+      },
     );
   };
 

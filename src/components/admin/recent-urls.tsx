@@ -19,7 +19,6 @@ export function RecentUrls({ className }: { className?: string }) {
       <CardHeader>
         <CardTitle>Recent URLs</CardTitle>
         <CardDescription>
-          {/* TODO: there is a problem with hydration here */}
           {last7DaysUrlsCount && (
             <>
               Users generated {last7DaysUrlsCount} entries in the last 7 days.

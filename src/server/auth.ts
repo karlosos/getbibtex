@@ -42,15 +42,20 @@ export const authOptions: NextAuthOptions = {
         id: token.sub,
       },
     }),
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    signIn: ({ user, account, profile, email, credentials }) => {
+    signIn: ({
+      user,
+      account: _account,
+      profile: _profile,
+      email: _email,
+      credentials: _credentials,
+    }) => {
       if (
         user.name === "the_karlosos" &&
         user.email === "karlososhd@gmail.com"
       ) {
         return true;
       }
-      return '/auth/unauthorized';
+      return "/auth/unauthorized";
     },
   },
   providers: [

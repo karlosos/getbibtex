@@ -7,7 +7,6 @@ export function createCiteKey(entryData: EntryData): string {
     const parseResult = parseDomain(entryData.website)
     if (parseResult.type === ParseResultType.Listed) {
         const { domain } = parseResult
-        // eslint-disable-next-line @typescript-eslint/restrict-plus-operands
         citekey = "" + domain
     }
     citekey = citekey + firstWordsFromTitle(entryData.title)

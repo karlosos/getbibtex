@@ -155,7 +155,6 @@ const OverviewTab = () => {
             </p>
           </CardContent>
         </Card>
-        {/* TODO: remove text-muted-foreground when implemented */}
         <Card className="text-muted-foreground">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">

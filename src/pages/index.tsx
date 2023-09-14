@@ -90,10 +90,6 @@ export default function Home() {
                 onChange={(e) => setBibtexEntry(e.target.value)}
               />
               <div className="mt-2 flex justify-end space-x-2">
-                {/* <Button variant={"outline"} className="gap-2">
-                  <Edit className="w-4" />
-                  Advanced editing
-                </Button> */}
                 <CopyToClipboardButton value={bibtexEntry} />
               </div>
               <div className="mt-4">
@@ -210,8 +206,6 @@ const HeaderText = () => (
 );
 
 const CopyToClipboardButton = ({ value }: { value: string }) => {
-  // TODO: fix linting. why i cannot disable it in .eslintrc.cjs?
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [_, copy] = useCopyToClipboard();
   const [isCopied, setIsCopied] = useState(false);
   const timerId = useRef<NodeJS.Timeout | null>();
@@ -233,8 +227,6 @@ const CopyToClipboardButton = ({ value }: { value: string }) => {
     <Button
       className="duration-250 gap-2"
       disabled={isCopied}
-      // TODO: fix linting. why i cannot disable it in .eslintrc.cjs?
-      // eslint-disable-next-line @typescript-eslint/no-misused-promises
       onClick={handleCopy}
     >
       {isCopied ? (

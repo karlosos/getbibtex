@@ -1,5 +1,6 @@
 import Head from "next/head";
 import React from "react";
+import { Toaster } from "./toaster";
 
 export function Layout({ children }: { children: React.ReactElement }) {
   return (
@@ -12,6 +13,7 @@ export function Layout({ children }: { children: React.ReactElement }) {
       </Head>
       <div>
         {children}
+        <Toaster />
       </div>
     </>
   );

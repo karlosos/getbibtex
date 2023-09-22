@@ -23,6 +23,9 @@ type NewEntry = {
   userId: string;
 };
 
+//
+// Commands
+//
 async function createLogEntry({ url, userId }: NewEntry) {
   const itemObj = new EntryModel({
     date: Date.now(),
@@ -39,6 +42,17 @@ const saveRequestToDb = async ({ url, userId }: NewEntry) => {
   return;
 };
 
+
+export const removeEntriesForUser = async ({userId}: {userId: string}) => {
+    await db.connect();
+    await EntryModel.deleteMany({ userId: userId}).exec();
+
+    return;
+}
+
+//
+// Queries
+//
 async function getTotalUrlsCount() {
   await db.connect();
   const totalUrlsCount = await EntryModel.find().countDocuments().exec();
@@ -116,7 +130,7 @@ async function getUrlsCountPerDays() {
   }
 
   // Calculate count for each day
-  const result = [];
+  const result = new Array<{ date: Date; count: number }>();
   for (let i = 1; i < dates.length; i++) {
     const count = await EntryModel.countDocuments({
       date: { $lte: dates[i - 1]!, $gte: dates[i]! },
@@ -132,7 +146,7 @@ async function getUrlsCountPerDays() {
 
 async function getTotalUsersCount() {
   await db.connect();
-  const users = await EntryModel.find().distinct('userId');
+  const users = await EntryModel.find().distinct("userId");
   const totalUsersCount = users.length;
 
   return totalUsersCount;
@@ -145,9 +159,15 @@ async function getUsersCountWeekChange() {
   const twoWeeksAgo = new Date();
   twoWeeksAgo.setDate(twoWeeksAgo.getDate() - 14);
 
-  const twoWeeksAgoUsersPromise = EntryModel.find({date: {$lte: twoWeeksAgo}}).distinct('userId').exec();
-  const weekAgoUsersPromise = EntryModel.find({date: {$lte: weekAgo}}).distinct('userId').exec();;
-  const allUsersPromise = EntryModel.find().distinct('userId').exec();
+  const twoWeeksAgoUsersPromise = EntryModel.find({
+    date: { $lte: twoWeeksAgo },
+  })
+    .distinct("userId")
+    .exec();
+  const weekAgoUsersPromise = EntryModel.find({ date: { $lte: weekAgo } })
+    .distinct("userId")
+    .exec();
+  const allUsersPromise = EntryModel.find().distinct("userId").exec();
 
   const [twoWeeksAgoUsers, weekAgoUsers, allUsers] = await Promise.all([
     twoWeeksAgoUsersPromise,

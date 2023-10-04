@@ -40,14 +40,12 @@ async function createErrorLogEntry({ url, userId, message }: NewErrorLog) {
 }
 
 export const saveErrorLogToDb = async ({ url, userId, message }: NewErrorLog) => {
-  await db.connect();
   await createErrorLogEntry({ url: url, userId: userId, message: message });
 
   return;
 };
 
 export const removeErrorsForUser = async ({userId}: {userId: string}) => {
-    await db.connect();
     await ErrorLogModel.deleteMany({ userId: userId}).exec();
 
     return;
@@ -57,7 +55,6 @@ export const removeErrorsForUser = async ({userId}: {userId: string}) => {
 // Queries
 //
 export async function getTotalErrorsCount() {
-  await db.connect();
   const totalUrlsCount = await ErrorLogModel.find().countDocuments().exec();
 
   return totalUrlsCount;
@@ -93,7 +90,6 @@ export async function getErrorsCountWeekChange() {
 }
 
 export async function getRecentErrors() {
-  await db.connect();
   const recentErrors = await ErrorLogModel.find().sort({ date: -1 }).limit(5).exec();
 
   return recentErrors;
@@ -103,7 +99,6 @@ export async function getLastDaysErrorsCount(numOfDays = 7) {
   const sevenDaysAgo = new Date();
   sevenDaysAgo.setDate(sevenDaysAgo.getDate() - numOfDays);
 
-  await db.connect();
   const urlsCount = await ErrorLogModel.countDocuments({
     date: { $gte: sevenDaysAgo },
   }).exec();

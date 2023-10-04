@@ -36,25 +36,21 @@ async function createLogEntry({ url, userId }: NewEntry) {
 }
 
 const saveRequestToDb = async ({ url, userId }: NewEntry) => {
-  await db.connect();
   await createLogEntry({ url: url, userId: userId });
 
   return;
 };
 
+export const removeEntriesForUser = async ({ userId }: { userId: string }) => {
+  await EntryModel.deleteMany({ userId: userId }).exec();
 
-export const removeEntriesForUser = async ({userId}: {userId: string}) => {
-    await db.connect();
-    await EntryModel.deleteMany({ userId: userId}).exec();
-
-    return;
-}
+  return;
+};
 
 //
 // Queries
 //
 async function getTotalUrlsCount() {
-  await db.connect();
   const totalUrlsCount = await EntryModel.find().countDocuments().exec();
 
   return totalUrlsCount;
@@ -90,7 +86,6 @@ async function getTotalUrlsCountWeekChange() {
 }
 
 async function getRecentUrls() {
-  await db.connect();
   const recentUrls = await EntryModel.find().sort({ date: -1 }).limit(5).exec();
 
   return recentUrls;
@@ -100,7 +95,6 @@ async function getLastDaysUrlsCount(numOfDays = 7) {
   const sevenDaysAgo = new Date();
   sevenDaysAgo.setDate(sevenDaysAgo.getDate() - numOfDays);
 
-  await db.connect();
   const urlsCount = await EntryModel.countDocuments({
     date: { $gte: sevenDaysAgo },
   }).exec();
@@ -109,8 +103,6 @@ async function getLastDaysUrlsCount(numOfDays = 7) {
 }
 
 async function getUrlsCountPerDays() {
-  await db.connect();
-
   // Set the time to midnight (00:00)
   const currentDate = new Date();
   currentDate.setHours(0, 0, 0, 0);
@@ -145,7 +137,6 @@ async function getUrlsCountPerDays() {
 }
 
 async function getTotalUsersCount() {
-  await db.connect();
   const users = await EntryModel.find().distinct("userId");
   const totalUsersCount = users.length;
 

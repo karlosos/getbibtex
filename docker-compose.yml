@@ -1,0 +1,28 @@
+version: '3.7'
+services:
+  # db definition
+  getbibtex_mongodb:
+    image: mongo:latest
+    container_name: getbibtex_mongodb
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: rootpassword
+    ports:
+      - 27017:27017
+    volumes:
+      - getbibtex_mongodb:/data/db
+  # webui for browsing databse
+  getbibtex_mongo-express:
+    image: mongo-express
+    container_name: getbibtex_mongo-express
+    environment:
+      - ME_CONFIG_MONGODB_SERVER=getbibtex_mongodb
+      - ME_CONFIG_MONGODB_AUTH_USERNAME=root
+      - ME_CONFIG_MONGODB_AUTH_PASSWORD=rootpassword
+    ports:
+      - "8081:8081"
+    depends_on:
+      - getbibtex_mongodb
+
+volumes:
+  getbibtex_mongodb:

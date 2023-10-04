@@ -22,12 +22,12 @@ export const citationsRouter = createTRPCRouter({
         return res;
       } catch (e) {
         const error = e as Error;
-        console.error(error.message);
+        console.error('>> getBibtexInfo', error.message);
 
         await saveErrorLogToDb({
           url: input.url,
           userId: input.userId,
-          message: error.message,
+          message: error.message ?? 'UNKNOWN',
         }).catch((e) => console.log(">> error log db saving error", e))
 
 

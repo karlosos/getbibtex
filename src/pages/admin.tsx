@@ -4,6 +4,7 @@ import { UserNav } from "@/components/admin/user-nav";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/ui/tabs";
 import { Layout } from "@/ui/layout";
 import { OverviewTab } from "@/components/admin/overview/overview-tab";
+import { TroubleshootingTab } from "@/components/admin/troubleshooting/troubleshooting-tab";
 
 export default function Admin() {
   return (
@@ -43,7 +44,7 @@ export default function Admin() {
               <OverviewTab />
             </TabsContent>
             <TabsContent value="troubleshooting" className="space-y-4">
-              Troubleshooting
+              <TroubleshootingTab />
             </TabsContent>
           </Tabs>
         </div>

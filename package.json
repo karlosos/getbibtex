@@ -22,6 +22,7 @@
     "@radix-ui/react-toast": "^1.1.4",
     "@t3-oss/env-nextjs": "^0.6.1",
     "@tanstack/react-query": "^4.33.0",
+    "@tanstack/react-table": "^8.10.7",
     "@trpc/client": "^10.37.1",
     "@trpc/next": "^10.37.1",
     "@trpc/react-query": "^10.37.1",

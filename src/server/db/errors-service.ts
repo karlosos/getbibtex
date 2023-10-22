@@ -54,6 +54,12 @@ export const removeErrorsForUser = async ({userId}: {userId: string}) => {
 //
 // Queries
 //
+export async function getErrors() {
+  const errors = await ErrorLogModel.find().sort({ date: -1 }).limit(50).exec();
+
+  return errors;
+}
+
 export async function getTotalErrorsCount() {
   const totalUrlsCount = await ErrorLogModel.find().countDocuments().exec();
 

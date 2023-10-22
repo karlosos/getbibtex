@@ -5,6 +5,7 @@ import {
   removeEntriesForUser,
 } from "@/server/db/entries-service";
 import {
+  getErrors,
   getErrorsCountPerDays,
   getErrorsCountWeekChange,
   getTotalErrorsCount,
@@ -95,6 +96,19 @@ export const statsRouter = createTRPCRouter({
   //
   // Errors
   //
+  getErrors: protectedProcedure.query(async () => {
+    try {
+      const errors = await getErrors();
+      return errors;
+    } catch (e) {
+      console.error(e);
+      throw new TRPCError({
+        code: "INTERNAL_SERVER_ERROR",
+        message: "Something wrong happened on the server.",
+      });
+    }
+  }),
+
   getTotalErrors: protectedProcedure.query(async () => {
     try {
       const totalErrorsCount = await getTotalErrorsCount();

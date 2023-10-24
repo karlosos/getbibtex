@@ -6,7 +6,7 @@ export const TroubleshootingTab = () => {
   const { data } = api.stats.getErrors.useQuery();
 
   return (
-    <div className="py-10">
+    <div>
       <DataTable columns={columns} data={data ?? []} />
     </div>
   )

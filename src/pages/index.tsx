@@ -4,22 +4,15 @@ import { Input } from "@/ui/input";
 import { Button } from "@/ui/button";
 import {
   ArrowRightCircle,
-  Check,
-  Copy,
-  Github,
-  Globe,
-  Lightbulb,
-  User,
+  Navigation,
 } from "lucide-react";
-import React, { useRef, useState } from "react";
+import React, { useState } from "react";
 import { Textarea } from "@/ui/textarea";
 import type { EntryData } from "@/server/citations/types";
 import { getCurrentDateString } from "@/utils/date-format";
-import { useCopyToClipboard } from "@/utils/copy-to-clipboard";
-import { useSession } from "next-auth/react";
-import Link from "next/link";
 import { useUserId } from "@/utils/use-user-id";
-import { Label } from "@/ui/label";
+import { ErrorForm } from "@/components/main/error";
+import { CopyToClipboardButton } from "@/components/main/copy-to-clipboard-button";
 
 export default function Home() {
   const userId = useUserId();
@@ -109,74 +102,12 @@ export default function Home() {
             </>
           </div>
         )}
-        {isError && <ErrorView url={url} />}
+        {isError && <ErrorForm url={url} />}
       </main>
     </Layout>
   );
 }
 
-const Navigation = () => {
-  const { data: sessionData } = useSession();
-
-  return (
-    <div className="space-x-1">
-      {sessionData && (
-        <Link href="/admin">
-          <button
-            type="button"
-            className="group mt-4 whitespace-nowrap rounded-lg border border-primary/20 bg-white/50 px-2 py-1.5 text-sm font-medium text-slate-700 shadow-lg shadow-blue-500/5 transition-all hover:shadow-blue-500/10"
-          >
-            <div className="inline-flex items-center">
-              <User className="h-3" />
-              <span>admin</span>
-            </div>
-          </button>
-        </Link>
-      )}
-      <Pill link="https://getbibtex.com">
-        <>
-          <Globe className="h-3" />
-          <span>getbibtex.com</span>
-        </>
-      </Pill>
-      <Pill link="https://github.com/karlosos/getbibtex">
-        <>
-          <Github className="h-3" />
-          <span>star me on github</span>
-        </>
-      </Pill>
-      <Pill link="https://github.com/karlosos/getbibtex/discussions/categories/ideas">
-        <>
-          <Lightbulb className="h-3" />
-          <span>request a feature</span>
-        </>
-      </Pill>
-      <Pill link="https://www.dzialowski.eu/">
-        <>
-          <User className="h-3" />
-          <span>dzialowski.eu</span>
-        </>
-      </Pill>
-    </div>
-  );
-};
-
-const Pill = ({
-  link,
-  children,
-}: {
-  link: string;
-  children: React.ReactElement;
-}) => (
-  <button
-    type="button"
-    className="group mt-4 whitespace-nowrap rounded-lg border border-primary/20 bg-white/50 px-2 py-1.5 text-sm font-medium text-slate-700 shadow-lg shadow-blue-500/5 transition-all hover:shadow-blue-500/10"
-  >
-    <a target="_blank" href={link}>
-      <div className="inline-flex items-center">{children}</div>
-    </a>
-  </button>
-);
 
 const HeaderText = () => (
   <>
@@ -190,171 +121,3 @@ const HeaderText = () => (
     </p>
   </>
 );
-
-const CopyToClipboardButton = ({ value }: { value: string }) => {
-  const [_, copy] = useCopyToClipboard();
-  const [isCopied, setIsCopied] = useState(false);
-  const timerId = useRef<NodeJS.Timeout | null>();
-
-  const handleCopy = async () => {
-    await copy(value);
-    setIsCopied(true);
-    if (timerId.current) {
-      clearTimeout(timerId.current);
-    }
-
-    timerId.current = setTimeout(() => {
-      setIsCopied(false);
-      timerId.current = null;
-    }, 500);
-  };
-
-  return (
-    <Button
-      className="duration-250 gap-2"
-      disabled={isCopied}
-      onClick={handleCopy}
-    >
-      {isCopied ? (
-        <>
-          <Check className="w-4" />
-          Copied!
-        </>
-      ) : (
-        <>
-          <Copy className="w-4" />
-          Copy to clipboard
-        </>
-      )}
-    </Button>
-  );
-};
-
-const ErrorView = ({ url }: { url: string }) => {
-  const [bibtexEntry, setBibtexEntry] = useState(
-    createFallbackBibtexEntry({ url: url }),
-  );
-
-  const [citeKey, setCiteKey] = useState("");
-  const [title, setTitle] = useState("");
-  const [author, setAuthor] = useState("");
-
-  return (
-    <>
-      <div className="mt-12 text-center">
-        <h3 className="mb-2 text-lg font-bold text-[#11124d]">
-          Something bad happened 😟
-        </h3>
-        <div className="text-neutral-500">
-          <p>Probably we are being blocked by the domain.</p>
-          <p>
-            Check if you have a valid url, e.g.{" "}
-            <span className="font-mono">
-              https://developer.mozilla.org/en-US/
-            </span>
-            .
-          </p>
-          <p>
-            If it&apos;s not working we have prepared an empty entry that you
-            can fill in by yourself.
-          </p>
-        </div>
-      </div>
-
-      <div className="z-10 mt-10 w-full max-w-2xl rounded-md border border-primary/20 bg-slate-50/50 p-4 shadow-sm">
-        <div className="mb-2 grid w-full items-center gap-1.5">
-          <Label htmlFor="citekey">Citation Key</Label>
-          <Input
-            type="citekey"
-            id="citekey"
-            placeholder="Citation Key (e.g. author2024)"
-            value={citeKey}
-            onChange={(e) => {
-              setCiteKey(e.target.value);
-              setBibtexEntry(
-                createFallbackBibtexEntry({
-                  url: url,
-                  author: author,
-                  citeKey: e.target.value,
-                  title: title,
-                }),
-              );
-            }}
-          />
-          <Label htmlFor="title">Title</Label>
-          <Input
-            type="title"
-            id="title"
-            placeholder="Title"
-            value={title}
-            onChange={(e) => {
-              setTitle(e.target.value);
-              setBibtexEntry(
-                createFallbackBibtexEntry({
-                  url: url,
-                  author: author,
-                  citeKey: citeKey,
-                  title: e.target.value,
-                }),
-              );
-            }}
-          />
-          <Label htmlFor="author">Author</Label>
-          <Input
-            type="author"
-            id="author"
-            placeholder="Author"
-            value={author}
-            onChange={(e) => {
-              setAuthor(e.target.value);
-              setBibtexEntry(
-                createFallbackBibtexEntry({
-                  url: url,
-                  author: e.target.value,
-                  citeKey: citeKey,
-                  title: title,
-                }),
-              );
-            }}
-          />
-        </div>
-        <>
-          <Textarea
-            className="h-48 bg-white"
-            value={bibtexEntry}
-            onChange={(e) => setBibtexEntry(e.target.value)}
-          />
-        </>
-        <div className="mt-2 flex justify-end space-x-2">
-          <CopyToClipboardButton value={bibtexEntry} />
-        </div>
-      </div>
-    </>
-  );
-};
-
-const createFallbackBibtexEntry = ({
-  url,
-  citeKey,
-  author,
-  title,
-}: {
-  url: string;
-  citeKey?: string;
-  author?: string;
-  title?: string;
-}) => {
-  const bibtexEmptyEntry = `@misc{${citeKey ? citeKey : "key"},
-\tauthor = {${author ?? ""}},
-\ttitle = {${title ? upperLettersInBibTex(title):  ""}},
-\thowpublished = {\\url{${url ?? ""}}},
-\tyear = {},
-\tnote = {[Accessed ${getCurrentDateString()}]},
-}`;
-
-  return bibtexEmptyEntry;
-};
-
-function upperLettersInBibTex(str: string): string {
-  return str.replace(/([A-Z])/g, "{$1}");
-}

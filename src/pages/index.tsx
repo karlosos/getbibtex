@@ -4,7 +4,6 @@ import { Input } from "@/ui/input";
 import { Button } from "@/ui/button";
 import {
   ArrowRightCircle,
-  Navigation,
 } from "lucide-react";
 import React, { useState } from "react";
 import { Textarea } from "@/ui/textarea";
@@ -13,6 +12,7 @@ import { getCurrentDateString } from "@/utils/date-format";
 import { useUserId } from "@/utils/use-user-id";
 import { ErrorForm } from "@/components/main/error";
 import { CopyToClipboardButton } from "@/components/main/copy-to-clipboard-button";
+import { Navigation } from "@/components/main/navigation";
 
 export default function Home() {
   const userId = useUserId();

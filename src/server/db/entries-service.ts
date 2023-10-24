@@ -86,7 +86,7 @@ async function getTotalUrlsCountWeekChange() {
 }
 
 async function getRecentUrls() {
-  const recentUrls = await EntryModel.find().sort({ date: -1 }).limit(50).exec();
+  const recentUrls = await EntryModel.find().sort({ date: -1 }).limit(5).exec();
 
   return recentUrls;
 }

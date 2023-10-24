@@ -15,7 +15,7 @@ export const ErrorForm = ({ url }: { url: string }) => {
   const [author, setAuthor] = useState("");
 
   return (
-    <>
+    <div className="mb-4">
       <div className="mt-12 text-center">
         <h3 className="mb-2 text-lg font-bold text-[#11124d]">
           Something bad happened 😟
@@ -104,7 +104,7 @@ export const ErrorForm = ({ url }: { url: string }) => {
           <CopyToClipboardButton value={bibtexEntry} />
         </div>
       </div>
-    </>
+    </div>
   );
 };
 

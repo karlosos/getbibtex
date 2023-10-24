@@ -15,8 +15,8 @@ export function createCiteKey(entryData: EntryData): string {
     return citekey
 }
 
-function firstWordsFromTitle(title: string): string {
-    const words = title.split(" ")
+function firstWordsFromTitle(title: string | null): string {
+    const words = title ? title.split(" ") : ""
     let firstWords = ""
     let numWords = 0
 

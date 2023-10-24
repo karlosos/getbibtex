@@ -4,8 +4,15 @@ import { createCiteKey } from "./create-citekey";
 import { getCurrentDateString } from "@/utils/date-format";
 
 export const getCitation = async (url: string) => {
-  const metadata = await urlMetadata(url);
-  const domain = domainFromUrl(url);
+  let serializedUrl = url.trim();
+  serializedUrl = addProtocol(serializedUrl);
+  let metadata = await urlMetadata(serializedUrl);
+  // When failed to fetch metadata try again with `www` subdomain
+  if (!metadata.title) {
+    serializedUrl = addSubdomain(url);
+    metadata = await urlMetadata(serializedUrl);
+  }
+  const domain = domainFromUrl(serializedUrl);
   const entryData: EntryData = {
     title: metadata.title,
     author: metadata.author,
@@ -17,6 +24,28 @@ export const getCitation = async (url: string) => {
 
   return { bibtex, entryData };
 };
+
+function addProtocol(url: string): string {
+  // Check if the URL starts with either "http://" or "https://"
+  if (url.startsWith("http://") || url.startsWith("https://")) {
+    return url;
+  } else {
+    // If it doesn't start with either, add "https://"
+    return "https://" + url;
+  }
+}
+
+function addSubdomain(url: string): string {
+  if (!url.includes("www")) {
+    if (url.startsWith("https://")) {
+      return url.replace("https://", "https://www.");
+    } else if (url.startsWith("http://")) {
+      return url.replace("http://", "http://www.");
+    }
+  }
+
+  return url;
+}
 
 function domainFromUrl(url: string): string {
   // based on regular expression https://regex101.com/r/MOIFTy/3
@@ -33,7 +62,7 @@ function bibtexFromEntryData(entryData: EntryData): string {
   // TODO: check if there are no invalid characters for bibtex
   const currentDate = getCurrentDateString();
   const title = upperLettersInBibTex(
-    `${entryData.title} --- ${entryData.website}`
+    `${entryData.title ? entryData.title + ' --- ' : ''}${entryData.website}`,
   );
   const bibtex = `@misc{${createCiteKey(entryData)},
 \tauthor = {${entryData.author}},

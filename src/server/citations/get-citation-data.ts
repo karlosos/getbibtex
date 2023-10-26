@@ -2,6 +2,7 @@ import urlMetadata from "url-metadata";
 import { type EntryData } from "./types";
 import { createCiteKey } from "./create-citekey";
 import { getCurrentDateString } from "@/utils/date-format";
+import { encodeCharactersInBibTex } from "@/utils/bibtex-encode-characters";
 
 export const getCitation = async (url: string) => {
   let serializedUrl = url.trim();
@@ -61,7 +62,7 @@ function domainFromUrl(url: string): string {
 function bibtexFromEntryData(entryData: EntryData): string {
   // TODO: check if there are no invalid characters for bibtex
   const currentDate = getCurrentDateString();
-  const title = upperLettersInBibTex(
+  const title = encodeCharactersInBibTex(
     `${entryData.title ? entryData.title + ' --- ' : ''}${entryData.website}`,
   );
   const bibtex = `@misc{${createCiteKey(entryData)},
@@ -75,6 +76,3 @@ function bibtexFromEntryData(entryData: EntryData): string {
   return bibtex;
 }
 
-function upperLettersInBibTex(str: string): string {
-  return str.replace(/([A-Z])/g, "{$1}");
-}

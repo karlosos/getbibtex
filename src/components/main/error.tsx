@@ -1,6 +1,7 @@
 import { Input } from "@/ui/input";
 import { Label } from "@/ui/label";
 import { Textarea } from "@/ui/textarea";
+import { encodeCharactersInBibTex } from "@/utils/bibtex-encode-characters";
 import { getCurrentDateString } from "@/utils/date-format";
 import { useState } from "react";
 import { CopyToClipboardButton } from "./copy-to-clipboard-button";
@@ -121,7 +122,7 @@ const createFallbackBibtexEntry = ({
 }) => {
   const bibtexEmptyEntry = `@misc{${citeKey ? citeKey : "key"},
 \tauthor = {${author ?? ""}},
-\ttitle = {${title ? upperLettersInBibTex(title) : ""}},
+\ttitle = {${title ? encodeCharactersInBibTex(title) : ""}},
 \thowpublished = {\\url{${url ?? ""}}},
 \tyear = {},
 \tnote = {[Accessed ${getCurrentDateString()}]},
@@ -129,7 +130,3 @@ const createFallbackBibtexEntry = ({
 
   return bibtexEmptyEntry;
 };
-
-function upperLettersInBibTex(str: string): string {
-  return str.replace(/([A-Z])/g, "{$1}");
-}

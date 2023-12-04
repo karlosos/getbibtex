@@ -7,9 +7,17 @@ export function Layout({ children }: { children: React.ReactElement }) {
     <>
       <Head>
         <title>URL to BibTeX generator - get BibTeX for any website</title>
-        <meta name="description" content="Quickly generate BibTeX entry from any URL and any website. No more manually creating @misc entries for websites! Paste an url and that's it!" />
+        <meta
+          name="description"
+          content="Quickly generate BibTeX entry from any URL and any website. No more manually creating @misc entries for websites! Paste an url and that's it!"
+        />
         <meta name="author" content="Karol Dzialowski" />
         <link rel="icon" href="/favicon.ico" />
+        <script
+          async
+          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6038855874034663"
+          crossOrigin="anonymous"
+        ></script>
       </Head>
       <div>
         {children}

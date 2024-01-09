@@ -3,6 +3,7 @@ import { Layout } from "@/ui/layout";
 import { Input } from "@/ui/input";
 import { Button } from "@/ui/button";
 import {
+  ArrowRight,
   ArrowRightCircle,
 } from "lucide-react";
 import React, { useState } from "react";
@@ -70,7 +71,7 @@ export default function Home() {
             {getBibtex.isLoading ? (
               <span className="loading"></span>
             ) : (
-              <ArrowRightCircle className="text-white/80" />
+              <ArrowRight className="text-white/80 h-5" />
             )}
             Get BibTeX
           </Button>

@@ -9,6 +9,7 @@ import { UsageChart } from "@/components/admin/overview/usage-chart";
 import { RecentUrls as RecentUrls } from "@/components/admin/overview/recent-urls";
 
 export const OverviewTab = () => {
+  // TODO: useContext is deprecated 
   const trpc = api.useContext();
   const userId = useUserId();
 
@@ -16,25 +17,23 @@ export const OverviewTab = () => {
   const { data: totalUsersStats } = api.stats.getTotalUsers.useQuery();
   const { data: totalErorsStats } = api.stats.getTotalErrors.useQuery();
 
-  const cleanAdminEntries = api.stats.cleanAdminEntries.useMutation(
-    {
-      onSuccess: async () => {
-        await trpc.stats.invalidate(); 
-        toast({
-          variant: "default",
-          title: "Successfully removed all admin entries",
-          description: getCurrentDateTimeString(),
-        })
-      },
-      onError: ({message}) => {
-        toast({
-          variant: "destructive",
-          title: "Couldn't remove admin entries",
-          description: message,
-        })
-      },
-    }
-  );
+  const cleanAdminEntries = api.stats.cleanAdminEntries.useMutation({
+    onSuccess: async () => {
+      await trpc.stats.invalidate();
+      toast({
+        variant: "default",
+        title: "Successfully removed all admin entries",
+        description: getCurrentDateTimeString(),
+      });
+    },
+    onError: ({ message }) => {
+      toast({
+        variant: "destructive",
+        title: "Couldn't remove admin entries",
+        description: message,
+      });
+    },
+  });
 
   const { toast } = useToast();
 
@@ -174,7 +173,7 @@ export const OverviewTab = () => {
             <Button
               variant="outline"
               className="w-full gap-2"
-              onClick={() => cleanAdminEntries.mutate({ userId: userId})}
+              onClick={() => cleanAdminEntries.mutate({ userId: userId })}
               disabled={cleanAdminEntries.isLoading}
             >
               {cleanAdminEntries.isLoading && <span className="loading"></span>}

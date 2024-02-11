@@ -8,6 +8,7 @@ export default createNextApiHandler({
   router: appRouter,
   createContext: createTRPCContext,
   onError:
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access
     env.NODE_ENV === "development"
       ? ({ path, error }) => {
           console.error(

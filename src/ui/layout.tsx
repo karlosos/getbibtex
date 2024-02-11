@@ -13,11 +13,6 @@ export function Layout({ children }: { children: React.ReactElement }) {
         />
         <meta name="author" content="Karol Dzialowski" />
         <link rel="icon" href="/favicon.ico" />
-        <script
-          async
-          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6038855874034663"
-          crossOrigin="anonymous"
-        ></script>
       </Head>
       <div>
         {children}

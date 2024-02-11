@@ -1,4 +1,4 @@
-import { ColumnDef } from "@tanstack/react-table";
+import { type ColumnDef } from "@tanstack/react-table";
 import { LinkIcon } from "lucide-react";
 
 // This type is used to define the shape of our data.

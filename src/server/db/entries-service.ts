@@ -1,5 +1,4 @@
 import mongoose, { Schema, model } from "mongoose";
-import { db } from "./db";
 
 type Entry = {
   date: Date;

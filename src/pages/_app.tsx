@@ -35,6 +35,11 @@ const MyApp: AppType<{ session: Session | null }> = ({
           gtag('config', 'G-J3JZ08YKE2');
         `}
       </Script>
+      <Script
+        async
+        src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6038855874034663"
+        crossOrigin="anonymous"
+      />
       <SessionProvider session={session}>
         <main>
           <Component {...pageProps} />

@@ -60,9 +60,7 @@ export const authOptions: NextAuthOptions = {
   },
   providers: [
     DiscordProvider({
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access
       clientId: env.DISCORD_CLIENT_ID,
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access
       clientSecret: env.DISCORD_CLIENT_SECRET,
     }),
     /**

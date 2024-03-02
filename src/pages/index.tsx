@@ -51,9 +51,6 @@ export default function Home() {
   return (
     <Layout>
       <main className="flex flex-col items-center dark:bg-slate-800">
-        <div className=" absolute right-4 top-4 ">
-          <DarkmodeToggle></DarkmodeToggle>
-        </div>
         <div className="mt-2 flex h-80 w-full max-w-4xl flex-col items-center rounded-xl bg-gradient-to-b from-[#d5edd7] to-[#f8eec4] p-2 text-[#11124d] shadow-sm dark:from-[#1CB5E0] dark:to-[#000046] lg:mt-8">
           <Navigation />
           <HeaderText />

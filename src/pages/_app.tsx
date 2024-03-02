@@ -5,6 +5,7 @@ import { api } from "@/utils/api";
 import "@/styles/globals.css";
 import { Inter as FontSans } from "next/font/google";
 import Script from "next/script";
+import { DarkmodeToggle } from "@/components/main/darkmode-toggle";
 
 const fontSans = FontSans({
   subsets: ["latin"],
@@ -42,6 +43,9 @@ const MyApp: AppType<{ session: Session | null }> = ({
       />
       <SessionProvider session={session}>
         <main>
+          <div className=" absolute right-4 top-4 ">
+            <DarkmodeToggle></DarkmodeToggle>
+          </div>
           <Component {...pageProps} />
         </main>
       </SessionProvider>

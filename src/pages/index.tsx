@@ -2,9 +2,7 @@ import { api } from "@/utils/api";
 import { Layout } from "@/ui/layout";
 import { Input } from "@/ui/input";
 import { Button } from "@/ui/button";
-import {
-  ArrowRightCircle,
-} from "lucide-react";
+import { ArrowRightCircle } from "lucide-react";
 import React, { useState } from "react";
 import { Textarea } from "@/ui/textarea";
 import type { EntryData } from "@/server/citations/types";
@@ -13,6 +11,7 @@ import { useUserId } from "@/utils/use-user-id";
 import { ErrorForm } from "@/components/main/error";
 import { CopyToClipboardButton } from "@/components/main/copy-to-clipboard-button";
 import { Navigation } from "@/components/main/navigation";
+import { RecentPosts } from "@/components/main/recent-posts";
 
 export default function Home() {
   const userId = useUserId();
@@ -52,7 +51,7 @@ export default function Home() {
   return (
     <Layout>
       <main className="flex flex-col items-center">
-        <div className="mt-2 flex h-80 w-full max-w-4xl flex-col items-center rounded-xl bg-gradient-to-b from-[#d5edd7] to-[#f8eec4] p-2 text-[#11124d] shadow-sm lg:mt-8">
+        <div className="mt-2 flex h-80 w-full max-w-4xl flex-col items-center rounded-xl bg-gradient-to-b from-[#d5edd7] to-[#f8eec4] p-2 text-[#11124d] shadow-sm lg:mt-8 pt-4">
           <Navigation />
           <HeaderText />
         </div>
@@ -77,37 +76,37 @@ export default function Home() {
         </div>
         {bibtexEntry && bibtexEntryData && (
           <div className="z-10 mt-10 w-full max-w-2xl rounded-md border border-primary/20 bg-slate-50/50 p-4 shadow-sm">
-            <>
-              <Textarea
-                className="h-48 bg-white"
-                value={bibtexEntry}
-                onChange={(e) => setBibtexEntry(e.target.value)}
-              />
-              <div className="mt-2 flex justify-end space-x-2">
-                <CopyToClipboardButton value={bibtexEntry} />
-              </div>
-              <div className="mt-4">
-                <span>
-                  {bibtexEntryData.author && bibtexEntryData.author + ". "}
-                </span>
-                <span className="italic">
-                  {bibtexEntryData.title +
-                    " --- " +
-                    bibtexEntryData.website +
-                    ". "}{" "}
-                </span>
-                <a href={bibtexEntryData.url}>{bibtexEntryData.url}</a>,
-                <span> [Accessed {getCurrentDateString()}]</span>
-              </div>
-            </>
+            <Textarea
+              className="h-48 bg-white"
+              value={bibtexEntry}
+              onChange={(e) => setBibtexEntry(e.target.value)}
+            />
+            <div className="mt-2 flex justify-end space-x-2">
+              <CopyToClipboardButton value={bibtexEntry} />
+            </div>
+            <div className="mt-4">
+              <span>
+                {bibtexEntryData.author && bibtexEntryData.author + ". "}
+              </span>
+              <span className="italic">
+                {bibtexEntryData.title +
+                  " --- " +
+                  bibtexEntryData.website +
+                  ". "}{" "}
+              </span>
+              <a href={bibtexEntryData.url}>{bibtexEntryData.url}</a>,
+              <span> [Accessed {getCurrentDateString()}]</span>
+            </div>
           </div>
         )}
         {isError && <ErrorForm url={url} />}
+        <div className="my-20 w-full max-w-4xl">
+          <RecentPosts />
+        </div>
       </main>
     </Layout>
   );
 }
-
 
 const HeaderText = () => (
   <>

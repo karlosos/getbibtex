@@ -7,7 +7,7 @@ export const RecentPosts = () => {
       <div className="flex items-end justify-between">
         <Title />
         <Link href={"/blog"}>
-          <Button className="h-8 rounded-lg bg-white px-3 text-sm font-medium text-[#36364a] shadow-[0_2px_6px_rgba(18,43,105,.04),_0_1px_2px_rgba(18,43,105,.08),_0_0_0_1px_rgba(18,43,105,.08);] transition-shadow hover:bg-white hover:shadow-[0_2px_6px_rgba(18,43,105,.12),_0_1px_2px_rgba(18,43,105,.12),_0_0_0_1px_rgba(18,43,105,.08);]">
+          <Button variant={"minor"} size={"minor"}>
             Browse all
           </Button>
         </Link>

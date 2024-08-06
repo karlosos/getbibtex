@@ -16,29 +16,20 @@ export default function Blog() {
               Blog & Resources
             </div>
           </div>
-          <h1 className="text-medium max-w-3xl text-center text-[64px] leading-none mt-4">
+          <h1 className="text-medium mt-4 max-w-3xl text-center text-[64px] leading-none">
             Discover articles and tutorials to enhance your LaTeX skills.
           </h1>
         </div>
         <div className="flex h-96 w-full max-w-7xl flex-col items-center rounded-xl rounded-t-none bg-gradient-to-b from-[#e7ebff] to-white p-2 px-8 py-4 text-[#11124d]">
           <div className="mt-3">
-          <FeaturedPost />
+            <FeaturedPost />
           </div>
         </div>
-        <BlogHeader />
+        <BlogSectionIntro />
       </main>
     </Layout>
   );
 }
-
-const BlogHeader = () => (
-  <>
-    <div>
-      Latest Guides <br />& News Articles
-    </div>
-    <div>Stay informed with the latest guides and news</div>
-  </>
-);
 
 const FeaturedPost = () => (
   <div className="big-shadow flex rounded-xl border bg-white p-4">
@@ -53,9 +44,7 @@ const FeaturedPost = () => (
         <div className="rounded-full bg-[#f4e2ff] px-2 text-sm font-medium text-[#301d3b]">
           Resources
         </div>
-        <div className="text-sm text-neutral-600">
-        •
-        </div>
+        <div className="text-sm text-neutral-600">•</div>
         <div className="text-sm text-neutral-600">January 29, 2024</div>
       </div>
       <h2 className="mt-2 text-2xl font-medium">
@@ -75,3 +64,13 @@ const FeaturedPost = () => (
     </div>
   </div>
 );
+
+const BlogSectionIntro = () => {
+  return (
+    <div className="text-center mt-10 mb-10">
+      <div className="bg-[#f9f9ff] border inline-block rounded-full text-[#11023b] text-sm font-medium border-[#e3e3fe] px-3 py-1">Browse all our articles</div>
+      <h2 className="text-medium mt-4 max-w-lg text-center text-[56px] leading-none text-[#230d5b]">Latest Guides & News Articles</h2>
+      <div className="text-[#262556] mt-4">Stay informed with the latest guides and news.</div>
+    </div>
+  );
+};

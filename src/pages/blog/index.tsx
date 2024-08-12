@@ -1,6 +1,8 @@
+import { PostPreview } from "@/components/blog/recent-posts";
 import { Navigation } from "@/components/main/navigation";
 import { Button } from "@/ui/button";
 import { Layout } from "@/ui/layout";
+import { cn } from "@/utils/cn";
 import Link from "next/link";
 import React from "react";
 
@@ -26,6 +28,8 @@ export default function Blog() {
           </div>
         </div>
         <BlogSectionIntro />
+        <CategorySwitcher />
+        <PostsList />
       </main>
     </Layout>
   );
@@ -67,10 +71,79 @@ const FeaturedPost = () => (
 
 const BlogSectionIntro = () => {
   return (
-    <div className="text-center mt-10 mb-10">
-      <div className="bg-[#f9f9ff] border inline-block rounded-full text-[#11023b] text-sm font-medium border-[#e3e3fe] px-3 py-1">Browse all our articles</div>
-      <h2 className="text-medium mt-4 max-w-lg text-center text-[56px] leading-none text-[#230d5b]">Latest Guides & News Articles</h2>
-      <div className="text-[#262556] mt-4">Stay informed with the latest guides and news.</div>
+    <div className="mb-10 mt-10 text-center">
+      <div className="inline-block rounded-full border border-[#e3e3fe] bg-[#f9f9ff] px-3 py-1 text-sm font-medium text-[#11023b]">
+        Browse all our articles
+      </div>
+      <h2 className="text-medium mt-4 max-w-lg text-center text-[56px] leading-none text-[#230d5b]">
+        Latest Guides & News Articles
+      </h2>
+      <div className="mt-4 text-[#262556]">
+        Stay informed with the latest guides and news.
+      </div>
+    </div>
+  );
+};
+
+const CategorySwitcher = () => {
+  return (
+    <div
+      className="mb-10 flex w-full max-w-2xl gap-3 border-b border-[#122a6914] py-3"
+      role="tablist"
+    >
+      <CategoryPill isActive onClick={() => undefined}>
+        All Topics
+      </CategoryPill>
+      <CategoryPill onClick={() => undefined}>Articles</CategoryPill>
+      <CategoryPill onClick={() => undefined}>Resources</CategoryPill>
+      <CategoryPill onClick={() => undefined}>Tutorials</CategoryPill>
+    </div>
+  );
+};
+
+const CategoryPill = ({
+  children,
+  isActive,
+  onClick,
+}: {
+  children: React.ReactNode;
+  isActive?: boolean;
+  onClick: () => void;
+}) => {
+  return (
+    <div
+      className={cn(
+        "rounded-full border border-white px-3 py-1 text-sm font-medium text-[#11023b] hover:cursor-pointer",
+        isActive ? "border-[#caceff57] bg-[#f4f5ff]" : "",
+      )}
+      role="tab"
+      aria-selected={isActive ? "true" : "false"}
+      onClick={onClick}
+    >
+      {children}
+    </div>
+  );
+};
+
+// TODO: fix weird things about height
+const PostsList = () => {
+  return (
+    <div className="min-h-[450px] justify-between max-w-2xl flex flex-wrap">
+      <PostPreview
+        title="Introducing the Webflow Boosters App"
+        description="Advanced code solution added directly inside of Webflow at the click of a button"
+        className="min-h-[450px]"
+      />
+      <PostPreview
+        title="Top 20 UI Inspiration Sites (2023)"
+        description="We've collated the top 20 UI inspiration sites, all with links in one handy spot! Find your inspiration for your next project."
+        className="min-h-[450px]"
+      />
+      <PostPreview
+        title="How to add a countdown timer to Framer"
+        description="Learn how to add a beautiful countdown to your Framer project. Add it to your project in seconds."
+        className="min-h-[450px]"
+      />
     </div>
   );
 };

@@ -1,17 +1,11 @@
 import { Button } from "@/ui/button";
+import { cn } from "@/utils/cn";
 import Link from "next/link";
 
 export const RecentPosts = () => {
   return (
-    <div className="">
-      <div className="flex items-end justify-between">
-        <Title />
-        <Link href={"/blog"}>
-          <Button variant={"minor"} size={"minor"}>
-            Browse all
-          </Button>
-        </Link>
-      </div>
+    <div>
+      <RecentPostsHeader />
       <div className="mt-8 flex min-h-[450px] justify-between">
         <PostPreview
           title="Introducing the Webflow Boosters App"
@@ -26,6 +20,19 @@ export const RecentPosts = () => {
           description="Learn how to add a beautiful countdown to your Framer project. Add it to your project in seconds."
         />
       </div>
+    </div>
+  );
+};
+
+const RecentPostsHeader = () => {
+  return (
+    <div className="flex items-end justify-between">
+      <Title />
+      <Link href={"/blog"}>
+        <Button variant={"minor"} size={"minor"}>
+          Browse all
+        </Button>
+      </Link>
     </div>
   );
 };
@@ -46,11 +53,12 @@ const Title = () => {
 type PostPreviewProps = {
   title: string;
   description: string;
+  className?: string;
 };
 
-const PostPreview = (props: PostPreviewProps) => {
+export const PostPreview = (props: PostPreviewProps) => {
   return (
-    <div className="group flex flex-col">
+    <div className={cn("group flex flex-col", props.className)}>
       <div className="h-[250px] w-[280px] overflow-hidden rounded-lg bg-black transition-all duration-300 group-hover:h-[240px] ">
         <img
           src="https://cdn.prod.website-files.com/5beab1239ac8840644a660b4/65b851484b52a37a2720e29f_Cover%20Image-p-800.png"

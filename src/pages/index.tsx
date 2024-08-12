@@ -11,7 +11,7 @@ import { useUserId } from "@/utils/use-user-id";
 import { ErrorForm } from "@/components/main/error";
 import { CopyToClipboardButton } from "@/components/main/copy-to-clipboard-button";
 import { Navigation } from "@/components/main/navigation";
-import { RecentPosts } from "@/components/main/recent-posts";
+import { RecentPosts } from "@/components/blog/recent-posts";
 
 export default function Home() {
   const userId = useUserId();

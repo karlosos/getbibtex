@@ -10,8 +10,7 @@ export default function Blog() {
   return (
     <Layout>
       <main className="flex flex-col items-center">
-        {/* TODO: looks weird without margins on small monitor (and with big margin-top) */}
-        <div className="mt-2 flex w-full max-w-7xl flex-col items-center rounded-xl rounded-b-none bg-gradient-to-b from-[#f2f1ff] to-[#e7ebff] p-2 px-8 py-4 text-[#11124d] lg:mt-8">
+        <div className="mt-2 flex w-full max-w-4xl flex-col items-center rounded-xl rounded-b-none bg-gradient-to-b from-[#f2f1ff] to-[#e7ebff] p-2 px-8 py-4 text-[#11124d] lg:mt-8">
           <Navigation />
           <div className="mt-12">
             <div className="rounded-full border border-[#e3e3fe] bg-[#efeaff] px-4 py-1 text-sm font-medium">
@@ -22,7 +21,7 @@ export default function Blog() {
             Discover articles and tutorials to enhance your LaTeX skills.
           </h1>
         </div>
-        <div className="flex h-96 w-full max-w-7xl flex-col items-center rounded-xl rounded-t-none bg-gradient-to-b from-[#e7ebff] to-white p-2 px-8 py-4 text-[#11124d]">
+        <div className="flex h-96 w-full max-w-4xl flex-col items-center rounded-xl rounded-t-none bg-gradient-to-b from-[#e7ebff] to-white p-2 px-8 py-4 text-[#11124d]">
           <div className="mt-3">
             <FeaturedPost />
           </div>
@@ -127,7 +126,7 @@ const CategoryPill = ({
 
 const PostsList = () => {
   return (
-    <div className="min-h-[450px] justify-between max-w-4xl flex w-full flex-wrap">
+    <div className="flex min-h-[450px] w-full max-w-4xl flex-wrap justify-between">
       <PostPreview
         title="Introducing the Webflow Boosters App"
         description="Advanced code solution added directly inside of Webflow at the click of a button"

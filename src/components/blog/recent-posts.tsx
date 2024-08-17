@@ -2,6 +2,7 @@ import { Button } from "@/ui/button";
 import { cn } from "@/utils/cn";
 import Link from "next/link";
 
+// TODO: should pass down list of posts to display
 export const RecentPosts = () => {
   return (
     <div>

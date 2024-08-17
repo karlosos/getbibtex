@@ -88,7 +88,7 @@ const BlogSectionIntro = () => {
 const CategorySwitcher = () => {
   return (
     <div
-      className="mb-10 flex w-full max-w-2xl gap-3 border-b border-[#122a6914] py-3"
+      className="mb-10 flex w-full max-w-4xl gap-3 border-b border-[#122a6914] py-3"
       role="tablist"
     >
       <CategoryPill isActive onClick={() => undefined}>
@@ -125,10 +125,9 @@ const CategoryPill = ({
   );
 };
 
-// TODO: fix weird things about height
 const PostsList = () => {
   return (
-    <div className="min-h-[450px] justify-between max-w-2xl flex flex-wrap">
+    <div className="min-h-[450px] justify-between max-w-4xl flex w-full flex-wrap">
       <PostPreview
         title="Introducing the Webflow Boosters App"
         description="Advanced code solution added directly inside of Webflow at the click of a button"
@@ -142,6 +141,21 @@ const PostsList = () => {
       <PostPreview
         title="How to add a countdown timer to Framer"
         description="Learn how to add a beautiful countdown to your Framer project. Add it to your project in seconds."
+        className="min-h-[450px]"
+      />
+      <PostPreview
+        title="How to add a countdown timer to Framer"
+        description="Learn how to add a beautiful countdown to your Framer project. Add it to your project in seconds."
+        className="min-h-[450px]"
+      />
+      <PostPreview
+        title="Top 20 UI Inspiration Sites (2023)"
+        description="We've collated the top 20 UI inspiration sites, all with links in one handy spot! Find your inspiration for your next project."
+        className="min-h-[450px]"
+      />
+      <PostPreview
+        title="Introducing the Webflow Boosters App"
+        description="Advanced code solution added directly inside of Webflow at the click of a button"
         className="min-h-[450px]"
       />
     </div>

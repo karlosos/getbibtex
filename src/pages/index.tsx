@@ -51,7 +51,7 @@ export default function Home() {
   return (
     <Layout>
       <main className="flex flex-col items-center">
-        <div className="mt-2 flex h-80 w-full max-w-4xl flex-col items-center rounded-xl bg-gradient-to-b from-[#d5edd7] to-[#f8eec4] p-2 text-[#11124d] shadow-sm lg:mt-8 pt-4">
+        <div className="mt-2 flex h-80 w-full max-w-4xl flex-col items-center rounded-xl bg-gradient-to-b from-[#d5edd7] to-[#f8eec4] p-2 pt-4 text-[#11124d] shadow-sm lg:mt-8">
           <Navigation />
           <HeaderText />
         </div>

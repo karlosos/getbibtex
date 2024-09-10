@@ -1,13 +1,22 @@
-import { BlogPostCategories } from "@/components/blog/blog-post-categories";
-import { CategorySwitcher } from "@/components/blog/category-switcher";
+import {
+  CategorySwitcher,
+  useCurrentBlogCategory,
+} from "@/components/blog/category-switcher";
 import { FeaturedPost } from "@/components/blog/featured-post";
-import { PostPreview } from "@/components/blog/recent-posts";
+import { PostPreview } from "@/components/blog/post-preview";
 import { Navigation } from "@/components/main/navigation";
+import {
+  BlogPostMeta,
+  featuredPost,
+  getBlogPostsForCategory,
+} from "@/content/blog-posts";
 import { Layout } from "@/ui/layout";
-import { cn } from "@/utils/cn";
 import React from "react";
 
 export default function Blog() {
+  const category = useCurrentBlogCategory();
+  const blogPostsList = getBlogPostsForCategory(category);
+
   return (
     <Layout>
       <main className="flex flex-col items-center">
@@ -25,18 +34,18 @@ export default function Blog() {
         <div className="flex h-96 w-full max-w-4xl flex-col items-center rounded-xl rounded-t-none bg-gradient-to-b from-[#e7ebff] to-white p-2 px-8 py-4 text-[#11124d]">
           <div className="mt-3">
             <FeaturedPost
-              title="Introducing the Webflow Boosters App"
-              description="Advanced code solution added directly inside of Webflow at the click of a button"
-              date="January 29, 2024"
-              url="/blog/posts/example"
-              imgSrc="https://cdn.prod.website-files.com/5beab1239ac8840644a660b4/65b851484b52a37a2720e29f_Cover%20Image-p-800.png"
-              category={BlogPostCategories.resources}
+              title={featuredPost.title}
+              description={featuredPost.description}
+              date={featuredPost.date}
+              url={featuredPost.url}
+              imgSrc={featuredPost.imgSrc}
+              category={featuredPost.category}
             />
           </div>
         </div>
         <BlogSectionIntro />
         <CategorySwitcher />
-        <PostsList />
+        <PostsList postsList={blogPostsList} />
       </main>
     </Layout>
   );
@@ -58,39 +67,24 @@ const BlogSectionIntro = () => {
   );
 };
 
-const PostsList = () => {
+type PostsListProps = {
+  postsList: BlogPostMeta[];
+};
+
+const PostsList = ({ postsList }: PostsListProps) => {
+  // FIXME: fix styling when 2 or 1 element in row
   return (
     <div className="flex min-h-[450px] w-full max-w-4xl flex-wrap justify-between">
-      <PostPreview
-        title="Introducing the Webflow Boosters App"
-        description="Advanced code solution added directly inside of Webflow at the click of a button"
-        className="min-h-[450px]"
-      />
-      <PostPreview
-        title="Top 20 UI Inspiration Sites (2023)"
-        description="We've collated the top 20 UI inspiration sites, all with links in one handy spot! Find your inspiration for your next project."
-        className="min-h-[450px]"
-      />
-      <PostPreview
-        title="How to add a countdown timer to Framer"
-        description="Learn how to add a beautiful countdown to your Framer project. Add it to your project in seconds."
-        className="min-h-[450px]"
-      />
-      <PostPreview
-        title="How to add a countdown timer to Framer"
-        description="Learn how to add a beautiful countdown to your Framer project. Add it to your project in seconds."
-        className="min-h-[450px]"
-      />
-      <PostPreview
-        title="Top 20 UI Inspiration Sites (2023)"
-        description="We've collated the top 20 UI inspiration sites, all with links in one handy spot! Find your inspiration for your next project."
-        className="min-h-[450px]"
-      />
-      <PostPreview
-        title="Introducing the Webflow Boosters App"
-        description="Advanced code solution added directly inside of Webflow at the click of a button"
-        className="min-h-[450px]"
-      />
+      {postsList.map((post) => (
+        <PostPreview
+          key={post.title}
+          title={post.title}
+          description={post.description}
+          url={post.url}
+          imgSrc={post.imgSrc}
+          className="min-h-[450px]"
+        />
+      ))}
     </div>
   );
 };

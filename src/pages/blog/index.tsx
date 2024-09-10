@@ -1,4 +1,5 @@
 import { BlogPostCategories } from "@/components/blog/blog-post-categories";
+import { CategorySwitcher } from "@/components/blog/category-switcher";
 import { FeaturedPost } from "@/components/blog/featured-post";
 import { PostPreview } from "@/components/blog/recent-posts";
 import { Navigation } from "@/components/main/navigation";
@@ -53,46 +54,6 @@ const BlogSectionIntro = () => {
       <div className="mt-4 text-[#262556]">
         Stay informed with the latest guides and news.
       </div>
-    </div>
-  );
-};
-
-const CategorySwitcher = () => {
-  return (
-    <div
-      className="mb-10 flex w-full max-w-4xl gap-3 border-b border-[#122a6914] py-3"
-      role="tablist"
-    >
-      <CategoryPill isActive onClick={() => undefined}>
-        All Topics
-      </CategoryPill>
-      <CategoryPill onClick={() => undefined}>Articles</CategoryPill>
-      <CategoryPill onClick={() => undefined}>Resources</CategoryPill>
-      <CategoryPill onClick={() => undefined}>Tutorials</CategoryPill>
-    </div>
-  );
-};
-
-const CategoryPill = ({
-  children,
-  isActive,
-  onClick,
-}: {
-  children: React.ReactNode;
-  isActive?: boolean;
-  onClick: () => void;
-}) => {
-  return (
-    <div
-      className={cn(
-        "rounded-full border border-white px-3 py-1 text-sm font-medium text-[#11023b] hover:cursor-pointer",
-        isActive ? "border-[#caceff57] bg-[#f4f5ff]" : "",
-      )}
-      role="tab"
-      aria-selected={isActive ? "true" : "false"}
-      onClick={onClick}
-    >
-      {children}
     </div>
   );
 };

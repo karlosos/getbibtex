@@ -60,16 +60,18 @@ type PostPreviewProps = {
 export const PostPreview = (props: PostPreviewProps) => {
   return (
     <div className={cn("group flex flex-col", props.className)}>
-      <div className="h-[250px] w-[280px] overflow-hidden rounded-lg bg-black transition-all duration-300 group-hover:h-[240px] ">
-        <img
-          src="https://cdn.prod.website-files.com/5beab1239ac8840644a660b4/65b851484b52a37a2720e29f_Cover%20Image-p-800.png"
-          className="h-[250px] transition-all duration-300 group-hover:scale-105"
-        />
-      </div>
-      <div className="max-w-[280px] px-1 py-2">
-        <h3 className="text-xl font-medium text-slate-800">{props.title}</h3>
-        <div className="text-sm  text-slate-400">{props.description}</div>
-      </div>
+      <Link href="/blog/posts/example">
+        <div className="h-[250px] w-[280px] overflow-hidden rounded-lg bg-black transition-all duration-300 group-hover:h-[240px] ">
+          <img
+            src="https://cdn.prod.website-files.com/5beab1239ac8840644a660b4/65b851484b52a37a2720e29f_Cover%20Image-p-800.png"
+            className="h-[250px] transition-all duration-300 group-hover:scale-105"
+          />
+        </div>
+        <div className="max-w-[280px] px-1 py-2">
+          <h3 className="text-xl font-medium text-slate-800">{props.title}</h3>
+          <div className="text-sm  text-slate-400">{props.description}</div>
+        </div>
+      </Link>
     </div>
   );
 };

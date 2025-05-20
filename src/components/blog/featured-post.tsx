@@ -19,11 +19,11 @@ export const FeaturedPost = ({
   imgSrc,
   category,
 }: FeaturedPostProps) => (
-  <div className="big-shadow flex rounded-xl border bg-white p-4">
-    <div className="h-[250px] w-[280px] overflow-hidden rounded-lg bg-black ">
-      <img src={imgSrc} className="h-[250px]" alt={title} />
+  <div className="big-shadow flex flex-col rounded-xl border bg-white p-4 md:flex-row">
+    <div className="h-[250px] w-full overflow-hidden rounded-lg bg-black md:w-[280px]">
+      <img src={imgSrc} alt={title} className="h-full w-full object-cover" />
     </div>
-    <div className="mt-8 flex max-w-[400px] flex-col px-8">
+    <div className="mt-4 flex max-w-full flex-col px-0 md:mt-8 md:max-w-[400px] md:px-8">
       <div className="flex gap-1">
         <div className="rounded-full bg-[#f4e2ff] px-2 text-sm font-medium text-[#301d3b]">
           {category.label}

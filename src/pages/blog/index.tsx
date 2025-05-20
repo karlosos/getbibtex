@@ -27,11 +27,11 @@ export default function Blog() {
               Blog & Resources
             </div>
           </div>
-          <h1 className="text-medium mt-4 max-w-3xl text-center text-[64px] leading-none">
+          <h1 className="text-medium mt-4 max-w-3xl text-center text-[32px] leading-none sm:text-[64px]">
             Discover articles and tutorials to enhance your LaTeX skills.
           </h1>
         </div>
-        <div className="flex h-96 w-full max-w-4xl flex-col items-center rounded-xl rounded-t-none bg-gradient-to-b from-[#e7ebff] to-white p-2 px-8 py-4 text-[#11124d]">
+        <div className="flex w-full max-w-4xl flex-col items-center rounded-xl rounded-t-none bg-gradient-to-b from-[#e7ebff] to-white p-2 px-8 py-4 text-[#11124d]">
           <div className="mt-3">
             <FeaturedPost
               title={featuredPost.title}
@@ -57,7 +57,7 @@ const BlogSectionIntro = () => {
       <div className="inline-block rounded-full border border-[#e3e3fe] bg-[#f9f9ff] px-3 py-1 text-sm font-medium text-[#11023b]">
         Browse all our articles
       </div>
-      <h2 className="text-medium mt-4 max-w-lg text-center text-[56px] leading-none text-[#230d5b]">
+      <h2 className="text-medium mt-4 max-w-lg text-center text-[28px] leading-none text-[#230d5b] sm:text-[56px]">
         Latest Guides & News Articles
       </h2>
       <div className="mt-4 text-[#262556]">
@@ -72,9 +72,8 @@ type PostsListProps = {
 };
 
 const PostsList = ({ postsList }: PostsListProps) => {
-  // FIXME: fix styling when 2 or 1 element in row
   return (
-    <div className="flex min-h-[450px] w-full max-w-4xl flex-wrap justify-between">
+    <div className="grid w-full max-w-4xl grid-cols-1 justify-items-center sm:min-h-[450px] sm:grid-cols-2 lg:grid-cols-3">
       {postsList.map((post) => (
         <PostPreview
           key={post.title}
@@ -82,7 +81,7 @@ const PostsList = ({ postsList }: PostsListProps) => {
           description={post.description}
           url={post.url}
           imgSrc={post.imgSrc}
-          className="min-h-[450px]"
+          className="min-h-auto sm:min-h-[450px]"
         />
       ))}
     </div>

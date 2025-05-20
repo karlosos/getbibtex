@@ -7,7 +7,7 @@ export const RecentPosts = () => {
   return (
     <div>
       <RecentPostsHeader />
-      <div className="mt-8 flex min-h-[450px] justify-between">
+      <div className="mt-8 grid w-full max-w-4xl grid-cols-1 justify-items-center sm:min-h-[450px] sm:grid-cols-2 lg:grid-cols-3">
         {recentPosts.map((post) => (
           <PostPreview
             key={post.title}

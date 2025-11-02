@@ -17,15 +17,19 @@ const buttonVariants = cva(
           "bg-secondary text-secondary-foreground hover:bg-secondary/80",
         ghost: "hover:bg-accent hover:text-accent-foreground",
         link: "text-primary underline-offset-4 hover:underline",
+        minor: "font-medium text-[#36364a] shadow-[0_2px_6px_rgba(18,43,105,.04),_0_1px_2px_rgba(18,43,105,.08),_0_0_0_1px_rgba(18,43,105,.08);] transition-shadow hover:bg-white hover:shadow-[0_2px_6px_rgba(18,43,105,.12),_0_1px_2px_rgba(18,43,105,.12),_0_0_0_1px_rgba(18,43,105,.08);]"
       },
       size: {
         default: "h-10 px-4 py-2",
         sm: "h-9 rounded-md px-3",
         lg: "h-11 rounded-md px-8",
         icon: "h-10 w-10",
+        minor: "h-8 rouded-lg px-3 text-sm"
       },
     },
     defaultVariants: {
+      // TODO: make that so we can define whole buttons with variants. so the variant can have size. or change 
+      // the order of classes?
       variant: "default",
       size: "default",
     },

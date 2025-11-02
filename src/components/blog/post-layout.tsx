@@ -16,7 +16,7 @@ export const PostLayout = ({
   children: React.ReactNode;
 }) => {
   return (
-    <Layout>
+    <Layout title={title} description={description}>
       <main className="flex flex-col items-center">
         <div className="mt-2 flex w-full max-w-7xl flex-col  rounded-xl rounded-b-none bg-gradient-to-b from-[#f2f1ff] to-[#e7ebff] p-1 px-32 pt-4 text-[#11124d] lg:mt-8">
           <div className="mx-auto">

@@ -12,6 +12,7 @@ import { ErrorForm } from "@/components/main/error";
 import { CopyToClipboardButton } from "@/components/main/copy-to-clipboard-button";
 import { Navigation } from "@/components/main/navigation";
 import { RecentPosts } from "@/components/blog/recent-posts";
+import { BuyMeACoffee } from "@/components/buy-me-a-coffee";
 
 export default function Home() {
   const userId = useUserId();
@@ -22,6 +23,7 @@ export default function Home() {
     null,
   );
   const [isError, setIsError] = useState(false);
+  const [isBmcVisible, setIsBmcVisible] = useState(false);
 
   const getBibtex = api.citations.getBibtexInfo.useMutation();
 
@@ -40,6 +42,7 @@ export default function Home() {
         onSuccess: (data) => {
           setBibtexEntry(data.bibtex);
           setBibtexEntryData(data.entryData);
+          setIsBmcVisible(true);
         },
         onError: (_e) => {
           setIsError(true);
@@ -55,7 +58,7 @@ export default function Home() {
           <Navigation />
           <HeaderText />
         </div>
-        <div className="-mt-12 flex w-full max-w-2xl items-center gap-4 rounded-xl bg-white p-4 shadow-xl border">
+        <div className="-mt-12 flex w-full max-w-2xl items-center gap-4 rounded-xl border bg-white p-4 shadow-xl">
           <Input
             type="text"
             placeholder="URL to website/article"
@@ -103,6 +106,7 @@ export default function Home() {
         <div className="my-20 w-full max-w-4xl">
           <RecentPosts />
         </div>
+        {isBmcVisible && <BuyMeACoffee />}
       </main>
     </Layout>
   );

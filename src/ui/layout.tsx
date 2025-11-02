@@ -26,6 +26,12 @@ export function Layout({
         />
         <meta name="author" content="Karol Dzialowski" />
         <link rel="icon" href="/favicon.ico" />
+        <link
+          rel="preload"
+          as="video"
+          href="/mascot-waving.mp4"
+          type="video/mp4"
+        />
       </Head>
       <div>
         {children}

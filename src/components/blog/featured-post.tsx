@@ -1,5 +1,6 @@
 import { BlogPostCategory } from "@/components/blog/blog-post-categories";
 import { Button } from "@/ui/button";
+import Image from "next/image";
 import Link from "next/link";
 
 type FeaturedPostProps = {
@@ -21,7 +22,13 @@ export const FeaturedPost = ({
 }: FeaturedPostProps) => (
   <div className="big-shadow flex flex-col rounded-xl border bg-white p-4 md:flex-row">
     <div className="h-[250px] w-full overflow-hidden rounded-lg bg-black md:w-[280px]">
-      <img src={imgSrc} alt={title} className="h-full w-full object-cover" />
+      <Image
+        src={imgSrc}
+        alt={title}
+        className="h-full w-full object-cover"
+        width={280}
+        height={250}
+      />
     </div>
     <div className="mt-4 flex max-w-full flex-col px-0 md:mt-8 md:max-w-[400px] md:px-8">
       <div className="flex gap-1">

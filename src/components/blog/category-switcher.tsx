@@ -15,8 +15,8 @@ export const useCurrentBlogCategory = () => {
     return undefined;
   }
 
-  if (Object.keys(BlogPostCategories).includes(category)) {
-    return BlogPostCategories[category];
+  if (category in BlogPostCategories) {
+    return BlogPostCategories[category as keyof typeof BlogPostCategories];
   }
 };
 

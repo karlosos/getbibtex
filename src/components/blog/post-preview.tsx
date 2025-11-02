@@ -1,4 +1,5 @@
 import { cn } from "@/utils/cn";
+import Image from "next/image";
 import Link from "next/link";
 
 type PostPreviewProps = {
@@ -22,10 +23,12 @@ export const PostPreview = (props: PostPreviewProps) => {
         className="flex flex-row items-center sm:flex-col sm:items-stretch"
       >
         <div className="w-[120px] overflow-hidden rounded-lg bg-black transition-all duration-300 group-hover:brightness-90 sm:h-[250px] sm:w-[280px]">
-          <img
+          <Image
             src={props.imgSrc}
             alt={props.title}
             className="h-auto w-full object-cover transition-all duration-300 group-hover:scale-105 sm:h-full"
+            width={280}
+            height={250}
           />
         </div>
         <div className="flex max-w-[280px] flex-col justify-center px-2 py-2 sm:mt-4 sm:px-1">

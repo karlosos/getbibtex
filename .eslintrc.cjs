@@ -10,13 +10,6 @@ const config = {
         "plugin:@typescript-eslint/recommended-requiring-type-checking",
       ],
       rules: {
-        "@typescript-eslint/consistent-type-imports": [
-          "warn",
-          {
-            prefer: "type-imports",
-            fixStyle: "inline-type-imports",
-          },
-        ],
         "@typescript-eslint/no-unused-vars": [
           "warn",
           { argsIgnorePattern: "^_", ignoreRestSiblings: true, destructuredArrayIgnorePattern: "^_" },

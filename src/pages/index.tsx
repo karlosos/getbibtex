@@ -51,11 +51,11 @@ export default function Home() {
   return (
     <Layout>
       <main className="flex flex-col items-center">
-        <div className="mt-2 flex h-80 w-full max-w-4xl flex-col items-center rounded-xl bg-gradient-to-b from-[#d5edd7] to-[#f8eec4] p-2 pt-4 text-[#11124d] shadow-sm lg:mt-8">
+        <div className="mt-2 flex h-80 w-full max-w-4xl flex-col items-center rounded-xl bg-gradient-to-b from-[#d5edd7] to-[#f8eec4] p-2 pt-4 text-[#11124d] lg:mt-8">
           <Navigation />
           <HeaderText />
         </div>
-        <div className="-mt-12 flex w-full max-w-2xl items-center gap-4 rounded-xl bg-white p-4 shadow-xl">
+        <div className="-mt-12 flex w-full max-w-2xl items-center gap-4 rounded-xl bg-white p-4 shadow-xl border">
           <Input
             type="text"
             placeholder="URL to website/article"

@@ -107,3 +107,68 @@
     inset 0 0 3px rgba(20, 40, 100, 0.04),
     inset 0 -4px 1px rgba(20, 40, 100, 0.06);
 }
+
+
+/* Blog post styles */
+@layer components {
+  .post-content {
+    @apply mt-12 text-[#11124d];
+  }
+
+  .post-content h1 {
+    @apply mt-12 mb-6 text-4xl font-semibold leading-tight text-[#11124d];
+  }
+
+  .post-content h2 {
+    @apply mt-10 mb-4 text-3xl font-semibold text-[#1c1d5b];
+  }
+
+  .post-content h3 {
+    @apply mt-8 mb-3 text-2xl font-semibold text-[#22245d];
+  }
+
+  .post-content p {
+    @apply mb-6 text-[17px] leading-7 text-[#262556];
+  }
+
+  .post-content a {
+    @apply text-[#614fff] underline underline-offset-4 decoration-2 transition-colors hover:text-[#2a1bd1] font-semibold;
+  }
+
+  .post-content ul {
+    @apply my-5 ml-6 list-disc text-[17px] leading-7 text-[#262556];
+  }
+
+  .post-content ol {
+    @apply my-5 ml-6 list-decimal text-[17px] leading-7 text-[#262556];
+  }
+
+  .post-content li {
+    @apply mb-2;
+  }
+
+  .post-content blockquote {
+    @apply my-6 border-l-4 border-[#c1b8ff] pl-5 italic text-[#44457d];
+  }
+
+  .post-content img {
+    @apply my-8 rounded-xl shadow-sm;
+  }
+
+  .post-content pre {
+    @apply my-8 overflow-x-auto rounded-lg bg-[#f6f6ff] p-4 text-sm text-[#1e1e2d];
+  }
+
+  .post-content code {
+    @apply rounded bg-[#f1f0ff] px-1.5 py-0.5 text-sm font-mono text-[#361763];
+  }
+
+  .post-content hr {
+    @apply my-10 border-t border-[#dcdafc];
+  }
+
+  /* Optional fine-tuning for spacing between headings & paragraphs */
+  .post-content > *:first-child {
+    @apply mt-0;
+  }
+}

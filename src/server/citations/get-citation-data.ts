@@ -63,16 +63,17 @@ function bibtexFromEntryData(entryData: EntryData): string {
   // TODO: check if there are no invalid characters for bibtex
   const currentDate = getCurrentDateString();
   const title = encodeCharactersInBibTex(
-    `${entryData.title ? entryData.title + ' --- ' : ''}${entryData.website}`,
+    `${entryData.title ? entryData.title + " --- " : ""}${entryData.website}`,
   );
+  const url = encodeCharactersInBibTex(entryData.url);
+
   const bibtex = `@misc{${createCiteKey(entryData)},
 \tauthor = {${entryData.author}},
 \ttitle = {${title}},
-\thowpublished = {\\url{${entryData.url}}},
+\thowpublished = {\\url{${url}}},
 \tyear = {},
 \tnote = {[Accessed ${currentDate}]},
 }`;
 
   return bibtex;
 }
-

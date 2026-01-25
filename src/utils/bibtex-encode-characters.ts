@@ -4,5 +4,6 @@ export function encodeCharactersInBibTex(str: string): string {
     .replace(/&/g, "\\&")
     .replace(/\$/g, "\\$")
     .replace(/\_/g, "\\_")
-    .replace(/#/g, "\\#");
+    .replace(/#/g, "\\#")
+    .replace(/%/g, "\\%");
 }
